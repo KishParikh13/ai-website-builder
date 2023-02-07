@@ -7,6 +7,11 @@ function Dashboard() {
     const base = new Airtable()
     const [sites, setSites] = useState([])
 
+    const logoutUser = () => {
+        sessionStorage.removeItem('user')
+        window.location.href = '/login'
+    }
+
     useEffect(() => {
         const user = sessionStorage.getItem('user')
         if (user) {
