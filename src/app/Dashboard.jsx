@@ -1,6 +1,16 @@
+import { useEffect } from "react";
 import Logo from "../components/Logo";
 
 function Dashboard() {
+
+    // check if user is saved in sessionStorage, redirect to dashboard if so
+    useEffect(() => {
+        const user = sessionStorage.getItem('user')
+        if (user) {
+        } else {
+            window.location.href = '/login'
+        }
+    }, [])
 
     return (
         <div>
@@ -70,7 +80,7 @@ function Dashboard() {
                                     </div>
                                 </a>
 
-                                <a href="#" className="bg-indigo-600 text-white hover:bg-indigo-700 transition duration-100 overflow-hidden border border-slate-200 rounded-lg">
+                                <a href="/new" className="bg-indigo-600 text-white hover:bg-indigo-700 transition duration-100 overflow-hidden border border-slate-200 rounded-lg">
                                     <div className="p-4 ">
                                         <div className="flex gap-4 items-center">
                                             <div className="flex-shrink-0 bg-indigo-500 rounded-md p-3">

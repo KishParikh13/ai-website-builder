@@ -14,11 +14,21 @@ function Register () {
   const [password, setPassword] = useState('')
   const [option, setOption] = useState('')
 
+  // check if user is saved in sessionStorage, redirect to dashboard if so
+  useEffect(() => {
+    const user = sessionStorage.getItem('user')
+    if (user) {
+      window.location.href = '/dashboard'
+    }
+  }, [])
+
   const createAccount = () => {
 
     base.createUser(first, last, email, password, option)
      .then(response => {
-       console.log(response)
+       // save response to session storage
+       sessionStorage.setItem('user', JSON.stringify(response))
+
        window.location.href = '/dashboard'
      })
   }

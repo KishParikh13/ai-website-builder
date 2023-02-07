@@ -11,6 +11,14 @@ function Login () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  // check if user is saved in sessionStorage, redirect to dashboard if so
+  useEffect(() => {
+    const user = sessionStorage.getItem('user')
+    if (user) {
+      window.location.href = '/dashboard'
+    }
+  }, [])
+
   const createAccount = () => {
     let user = {
       email: email,
@@ -21,6 +29,9 @@ function Login () {
     .then(response => {
         console.log(response)
         if (response.fields) {
+            // save response to session storage
+            sessionStorage.setItem('user', JSON.stringify(response))
+
             window.location.href = '/dashboard'
         } else {
             alert('Invalid credentials')
