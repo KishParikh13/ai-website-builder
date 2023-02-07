@@ -10,6 +10,32 @@ export class Airtable {
         }
     };
 
+    // sites table
+
+    // create site
+    createSite = (userID, siteDescription, siteGoal) => {
+        return new Promise((resolve, reject) => {
+            let data = {
+                fields: {
+                    "Owner": [userID],
+                    "SiteDescription": siteDescription,
+                    "SiteGoal": siteGoal
+                }
+            }
+            axios.post(`${this.url}/Portfolios`, data, this.config)
+                .then(x => {
+                    resolve(x.data);
+                })
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+
+    // user table
+
     // encrypt password
     encrypt = (string) => {
         let secretPass = process.env.REACT_APP_ENCRYPTION_KEY;
