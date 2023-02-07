@@ -11,6 +11,18 @@ export class Airtable {
     };
 
     // sites table
+    getSiteByID = (siteID) => {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/Portfolios/${siteID}`, this.config)
+                .then(x => {
+                    resolve(x.data);
+                })
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
 
     // get all sites for user
     getSitesForUser = (userID) => {
@@ -29,11 +41,10 @@ export class Airtable {
     }
 
     // create site
-    createSite = (userID, siteTitle, siteDescription, siteGoal) => {
+    createSite = (userID, siteDescription, siteGoal) => {
         return new Promise((resolve, reject) => {
             let data = {
                 fields: {
-                    "Name": siteTitle,
                     "Owner": [userID],
                     "SiteDescription": siteDescription,
                     "SiteGoal": siteGoal
@@ -64,6 +75,9 @@ export class Airtable {
         let secretPass = process.env.REACT_APP_ENCRYPTION_KEY;
         return CryptoJS.AES.decrypt(string, secretPass).toString(CryptoJS.enc.Utf8);
     }
+
+
+    // reload user
 
     // login user
     loginUser(email, password) {

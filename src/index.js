@@ -7,6 +7,7 @@ import Login from "./app/Login";
 import Register from "./app/Register";
 import Dashboard from "./app/Dashboard";
 import GenerateSite from "./app/GenerateSite";
+import SiteEditor from './app/SitePreview';
 
 export default function App() {
   return (
@@ -15,6 +16,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        <Route path="/sites/:siteID" element={<SiteEditor />} />
 
         <Route path="/new" element={<GenerateSite />} />
         <Route path="/dashboard" element={<Dashboard />} />

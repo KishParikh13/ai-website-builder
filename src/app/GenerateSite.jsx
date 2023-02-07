@@ -12,7 +12,6 @@ function GenerateSite() {
     const [selfDescription, setSelfDescription] = useState('')
     const [siteGoal, setSiteGoal] = useState('')
 
-
     // check if user is saved in sessionStorage, redirect to dashboard if so
     useEffect(() => {
         const user = sessionStorage.getItem('user')
@@ -24,13 +23,12 @@ function GenerateSite() {
     }, [])
 
     const generateSite = () => {
-        let siteTitle = user.fields.First + "'s Site #" + user.fields.NumSites
-        base.createSite(user.id, siteTitle, selfDescription, siteGoal)
+        base.createSite(user.id, selfDescription, siteGoal)
             .then(response => {
                 console.log(response)
                 if (response.fields) {
-                    // window.location.href = '/dashboard'
-                    alert('Site generated!')
+
+                    window.location.href = `/sites/${response.id}`
                 } else {
                     alert(response)
                 }
