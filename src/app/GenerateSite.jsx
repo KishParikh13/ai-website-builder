@@ -24,7 +24,8 @@ function GenerateSite() {
     }, [])
 
     const generateSite = () => {
-        base.createSite(user.id, selfDescription, siteGoal)
+        let siteTitle = user.fields.First + "'s Site #" + user.fields.NumSites
+        base.createSite(user.id, siteTitle, selfDescription, siteGoal)
             .then(response => {
                 console.log(response)
                 if (response.fields) {
@@ -33,6 +34,7 @@ function GenerateSite() {
                 } else {
                     alert(response)
                 }
+                window.location.href = '/dashboard'
             })
     }
 

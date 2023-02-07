@@ -12,11 +12,28 @@ export class Airtable {
 
     // sites table
 
+    // get all sites for user
+    getSitesForUser = (userID) => {
+        return new Promise((resolve, reject) => {
+            let filterByFormula = `filterByFormula=%7BOwnerID%7D%3D%22${userID}%22`
+            console.log(decodeURIComponent(filterByFormula) , userID)
+            axios.get(`${this.url}/Portfolios?${filterByFormula}`, this.config)
+                .then(x => {
+                    resolve(x.data.records);
+                })
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
     // create site
-    createSite = (userID, siteDescription, siteGoal) => {
+    createSite = (userID, siteTitle, siteDescription, siteGoal) => {
         return new Promise((resolve, reject) => {
             let data = {
                 fields: {
+                    "Name": siteTitle,
                     "Owner": [userID],
                     "SiteDescription": siteDescription,
                     "SiteGoal": siteGoal
