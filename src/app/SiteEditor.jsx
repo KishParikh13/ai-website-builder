@@ -92,6 +92,7 @@ function SiteEditor(props) {
                         />
                         <TextArea
                             className="col-span-full"
+                            rows="6"
                             label="Hero Subheading"
                             id="site_hero_subheading"
                             name="site_hero_subheading"
