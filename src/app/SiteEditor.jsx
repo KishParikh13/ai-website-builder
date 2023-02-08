@@ -9,17 +9,14 @@ import Accordion from '../components/Accordion';
 const tabs = [
     {
         name: 'Profile',
-        href: '#',
         current: true,
     },
     {
-        name: 'Projects',
-        href: '#',
+        name: 'Content',
         current: false,
     },
     {
         name: 'Settings',
-        href: '#',
         current: false,
     }
 ]
@@ -57,11 +54,20 @@ function SiteEditor(props) {
     const [selectedTab, setSelectedTab] = useState('Profile')
 
     const updateProjects = (index, whichvalue, newvalue) => {
-        console.log(index)
         if (index !== -1) {
             let tempProjects = props.SiteProjects.slice();
             tempProjects[index][whichvalue] = newvalue;
             props.setSiteProjects(tempProjects);
+        } else {
+            console.log('no match');
+        }
+    }
+
+    const updateServices = (index, whichvalue, newvalue) => {
+        if (index !== -1) {
+            let tempServices = props.SiteServices.slice();
+            tempServices[index][whichvalue] = newvalue;
+            props.setSiteServices(tempServices);
         } else {
             console.log('no match');
         }
@@ -126,13 +132,13 @@ function SiteEditor(props) {
                     </>
                 }
                 {
-                    selectedTab === 'Projects' && <>
+                    selectedTab === 'Content' && <>
                         <div className="col-span-full">
                             <label htmlFor="" className="block text-sm font-medium text-gray-700">
-                                Edit or Create Projects
+                                Projects
                             </label>
                             <div className="mt-3 ">
-                                <div className="bg-white rounded-lg border border-gray-200 text-gray-900">
+                                <div className="bg-white rounded-lg border overflow-hidden border-gray-200 text-gray-900">
                                 
                                 {
                                     props.SiteProjects && props.SiteProjects.filter( project => project.name !== "").map((project, index) => (
@@ -203,6 +209,63 @@ function SiteEditor(props) {
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                 </svg>
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-span-full">
+                            <label htmlFor="" className="block text-sm font-medium text-gray-700">
+                                Services
+                            </label>
+                            <div className="mt-3 ">
+                                <div className="bg-white rounded-lg border overflow-hidden border-gray-200 text-gray-900">
+                                
+                                {
+                                    props.SiteServices && props.SiteServices.filter( service => service.name !== "").map((service, index) => (
+                                        <Accordion
+                                            key={index}
+                                            title={service.name}
+                                            content={
+                                                <div className='flex flex-col gap-y-6'>
+                                                    <TextField
+                                                        className="col-span-full"
+                                                        type="text"
+                                                        label="Name"
+                                                        id={`service_name_${index}`}
+                                                        name={`service_name_${index}`}
+                                                        required
+                                                        value={service.name}
+                                                        onChange={e => {
+                                                            updateServices(index, "name", e.target.value);
+                                                        }}
+                                                    />
+                                                    <TextArea
+                                                        className="col-span-full"
+                                                        label="Description"
+                                                        id={`service_description_${index}`}
+                                                        name={`service_description_${index}`}
+                                                        rows="4"
+                                                        required
+                                                        value={service.description}
+                                                        onChange={e => {
+                                                            updateServices(index, "description", e.target.value);
+                                                        }}
+                                                    />
+                                                </div>
+                                            }
+                                        />
+                                    ))
+                                }
+                                <a href="#!" aria-current="true" className=" flex justify-between items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-b-lg border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer"
+                                    onClick={e => {
+                                        props.setSiteServices([...props.SiteServices, {name: `Service ${props.SiteServices.length}`, description: ""}])
+                                    }} 
+                                >
+                                    Create service
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
                                 </a>
                                 </div>
                             </div>

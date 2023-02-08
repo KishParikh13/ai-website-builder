@@ -101,16 +101,17 @@ function SiteDisplay (props) {
         return (
             <section id="services" style={{ backgroundColor: '#' + 'FFFFFF' + '3F' }} className={`px-8 py-16 w-full `+ (props.SiteServices ?  '' : 'hidden')}>
                 <div className=" flex flex-col gap-1 ">
-                    <div className='mx-auto max-w-3xl '>
+                    <div className='mx-auto max-w-3xl  w-full'>
                         <h2 className='text-3xl font-bold mb-4'>
                             Services
                         </h2>
                         <ul className='grid grid-cols-2 gap-4'>
                             {
-                                props.SiteServices && props.SiteServices.split('\n').filter(service => service.length > 0).map((service, index) => {
+                                props.SiteServices && props.SiteServices.map((service, index) => {
                                     return (
                                         <li key={index} className="p-4 bg-gray-200 rounded-md">
-                                            {service}. Product Strategy: For those looking to test an idea, explore growth strategies, analyze and optimize processes, or clarify overall product direction.
+                                            <h3 className='text-lg font-bold mb-1'>{service.name}</h3>
+                                            <p>{service.description}</p>
                                         </li>
                                     )
                                 })

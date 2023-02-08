@@ -27,11 +27,11 @@ function SiteBuilder() {
     const [SiteCTAHeading, setSiteCTAHeading] = useState('');
     const [SiteColor, setSiteColor] = useState('');
     const [SiteHeroHeading, setSiteHeroHeading] = useState('');
-    const [SiteServices, setSiteServices] = useState('');
     const [SiteHeroSubheading, setSiteHeroSubheading] = useState('');
     const [SiteRecordID, setSiteRecordID] = useState('');
     const [SiteImages, setSiteImages] = useState('');
     const [SiteLogo, setSiteLogo] = useState('');
+    const [SiteServices, setSiteServices] = useState([]);
     const [SiteProjects, setSiteProjects] = useState([]);
 
     const [saving, setSaving] = useState(false);
@@ -62,12 +62,12 @@ function SiteBuilder() {
                     setSiteCTALink(siteFields.SiteCTALink)
                     setSiteCTAHeading(siteFields.SiteCTAHeading)
                     setSiteColor(siteFields.SiteColor)
-                    setSiteServices(siteFields.SiteServices)
                     setSiteHeroHeading(cleanString(siteFields.SiteHeroHeading))
                     setSiteHeroSubheading(cleanString(siteFields.SiteHeroSubheading))
                     setSiteRecordID(siteFields.SiteRecordID)
                     setSiteImages(siteFields.SiteImages)
                     setSiteLogo(siteFields.SiteLogo)
+                    setSiteServices(JSON.parse(siteFields.SiteServices))
                     setSiteProjects(JSON.parse(siteFields.SiteProjects))
 
                     setLastUpdated(siteFields.Updated)
@@ -83,10 +83,10 @@ function SiteBuilder() {
             "SiteCTAType": SiteCTAType,
             "SiteColor": SiteColor,
             "SiteHeroHeading": SiteHeroHeading,
-            "SiteServices": SiteServices,
             "SiteHeroSubheading": SiteHeroSubheading,
             "SiteImages": SiteImages,
             "SiteLogo": SiteLogo,
+            "SiteServices": JSON.stringify(SiteServices),
             "SiteProjects": JSON.stringify(SiteProjects)
         })
         .then (response => {
