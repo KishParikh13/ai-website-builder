@@ -43,11 +43,12 @@ function GenerateSiteAndRedirect() {
 
         setLoadingState('loading')
         const AIGeneratedContent = {}
+        const userName = user.fields["Full name"]
 
-        // hero heading
+        // site name
         getOpenAICompletion({
             "model": "text-davinci-003",
-            "prompt": `Create a 2-3 word name for a portfolio website that belongs to ${user.fields.name}`,
+            "prompt": `Create a short catchy name for a portfolio website that belongs to a ${selfDescription} named ${userName}, e.g. "Katie's Design Portfolio", "John's Developer Showcase", "Jane's Creative Website", etc.`,
             "temperature": 0.4,
             "max_tokens": 100
         }).then(response => {
@@ -57,7 +58,7 @@ function GenerateSiteAndRedirect() {
         // hero heading
         getOpenAICompletion({
             "model": "text-davinci-003",
-            "prompt": `Rephrase this text to be one concise sentence. In third person, describing John, a circus clown`,
+            "prompt": `Write a catchy professional one line heading for a personal website. In first person, describing a ${selfDescription}, but using their first name only.`,
             "temperature": 0.4,
             "max_tokens": 100
         }).then(response => {
@@ -67,7 +68,12 @@ function GenerateSiteAndRedirect() {
         // hero subheading
         getOpenAICompletion({
             "model": "text-davinci-003",
-            "prompt": `Rewrite this text without using any of the same words in three sentences. Make it professional and in third person, describing ${"John"} but using their first name only: "${"clown with mask"}"`,
+            "prompt": `Write a 2-3 sentence subheading for a personal website. In first person, describing ${userName}, a ${selfDescription}, but using their first name only. The subheading will be below this heading: "${AIGeneratedContent["SiteHeroHeading"]}"
+            e.g. I am a trans-disciplinary approach to design, I am able to leave behind the confines of a conventional method by combining UX fundamentals with years of experience in Product Marketing, Digital Analysis, Market Research, and Brand Management",
+            John is a freelance designer and for the last 8 years I have been helping startups deliver better experiences across Android, iOS and Web.,
+            Hello there! 👋 I'm Daniel, a senior product designer based in Toronto currently working with RBC.,
+            I help businesses big and small to turn their ideas into great products their customers love.
+            `,
             "temperature": 0.8,
             "max_tokens": 100
         }).then(response => {
