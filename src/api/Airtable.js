@@ -41,13 +41,22 @@ export class Airtable {
     }
 
     // create site
-    createSite = (userID, siteDescription, siteGoal) => {
+    createSite = (userID, siteDescription, siteGoal, generatedContent) => {
         return new Promise((resolve, reject) => {
             let data = {
                 fields: {
+                    "Name": generatedContent.Name,
                     "Owner": [userID],
                     "SiteDescription": siteDescription,
-                    "SiteGoal": siteGoal
+                    "SiteGoal": siteGoal,
+                    "SiteHeroHeading": generatedContent.SiteHeroHeading,
+                    "SiteHeroSubheading": generatedContent.SiteHeroSubheading,
+                    "SiteLogo": generatedContent.SiteLogo,
+                    "SiteColor": generatedContent.SiteColor,
+                    "SiteServices": generatedContent.SiteServices,
+                    "SiteCTA": generatedContent.SiteCTA,
+                    "SiteCTAHeading": generatedContent.SiteCTAHeading,
+                    "SiteImages": generatedContent.SiteImages,
                 }
             }
             axios.post(`${this.url}/Portfolios`, data, this.config)
