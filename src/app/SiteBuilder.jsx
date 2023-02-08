@@ -18,10 +18,12 @@ function SiteBuilder() {
 
     const [site, setSite] = useState({});
 
+    const [lastUpdated, setLastUpdated] = useState('');
     const [OwnerName, setOwnerName] = useState('');
     const [SiteName, setSiteName] = useState('');
     const [SiteCTA, setSiteCTA] = useState('');
     const [SiteCTALink, setSiteCTALink] = useState('');
+    const [SiteCTAType, setSiteCTAType] = useState('');
     const [SiteCTAHeading, setSiteCTAHeading] = useState('');
     const [SiteColor, setSiteColor] = useState('');
     const [SiteHeroHeading, setSiteHeroHeading] = useState('');
@@ -65,6 +67,8 @@ function SiteBuilder() {
                     setSiteRecordID(siteFields.SiteRecordID)
                     setSiteImages(siteFields.SiteImages)
                     setSiteLogo(siteFields.SiteLogo)
+
+                    setLastUpdated(siteFields.Updated)
                 })
     }
 
@@ -92,7 +96,6 @@ function SiteBuilder() {
             { site.fields && <>
                 <DashboardLayout
                     Title={`Edit ${site.fields.Name}`}
-                    // cta1={{text: "Preview Site", target: "_blank", link: `/view/${siteID}`, color: "indigo"}}
                     cta1={
                         <Button
                             type="button"
@@ -105,34 +108,45 @@ function SiteBuilder() {
                         </Button>
                     }
                     cta2={
-                        <Button
-                            type="button"
-                            variant="solid"
-                            color= { saving ? "green" : "slate" }
-                            className={ unsavedChanges ? ' ' : 'hidden'}
-                            onClick={e => {
-                                setSaving(true)
-                                saveSiteChanges()
-                                setTimeout(() => {
-                                    setSaving(false)
-                                    setUnsavedChanges(false);
-                                }, 2000)
-                            }}
-                        >
-                            <span>
+                        <div className='flex items-center gap-4'>
+                            <p className='text-green-400'>
+                                Saved
                                 {
-                                    saving ? <div className='flex items-center gap-2'>
-                                        Saving...
-                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                                        </svg>
-                                    </div>
-                                    :
-                                    <> Save changes <span aria-hidden="true">&uarr;</span> </>
+                                    new Date(lastUpdated).getDate === new Date().getDate ?
+                                    ' today' :
+                                    ` ${ new Date(lastUpdated).toLocaleString('en-US', { year:"numeric", month:"numeric", day:"numeric" }) }`
                                 }
-                            </span>
-                        </Button>
+                                , { new Date(lastUpdated).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) }
+                            </p>
+                            <Button
+                                type="button"
+                                variant="solid"
+                                color= { saving ? "green" : "slate" }
+                                className={''}
+                                onClick={e => {
+                                    setSaving(true)
+                                    saveSiteChanges()
+                                    setTimeout(() => {
+                                        setSaving(false)
+                                        setUnsavedChanges(false);
+                                    }, 2000)
+                                }}
+                            >
+                                <span>
+                                    {
+                                        saving ? <div className='flex items-center gap-2'>
+                                            Saving...
+                                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                            </svg>
+                                        </div>
+                                        :
+                                        <> Save changes <span aria-hidden="true">&uarr;</span> </>
+                                    }
+                                </span>
+                            </Button>
+                        </div>
                     }
                     hideNav={true}
                     Content={
@@ -172,7 +186,7 @@ function SiteBuilder() {
                                                 OwnerName={OwnerName}
                                                 SiteName={SiteName}
                                                 SiteCTA={SiteCTA}
-                                                SiteCTALink={SiteCTALink}
+                                                SiteCTALink={(SiteCTAType === "website" ? "https://" : "mailto:")  + SiteCTALink}
                                                 SiteCTAHeading={SiteCTAHeading}
                                                 SiteColor={SiteColor}
                                                 SiteHeroHeading={SiteHeroHeading}
