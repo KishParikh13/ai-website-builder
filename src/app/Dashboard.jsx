@@ -19,7 +19,6 @@ function Dashboard() {
             // get sites for user
             base.getSitesForUser(JSON.parse(user).id)
                 .then(records => {
-                    console.log(records)
                     setSites(records)
                 })
         } else {
