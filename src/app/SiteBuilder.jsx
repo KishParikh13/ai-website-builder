@@ -55,6 +55,8 @@ function SiteBuilder() {
                     setOwnerName(siteFields.OwnerName)
                     setSiteName(siteFields.Name)
                     setSiteCTA(siteFields.SiteCTA)
+                    setSiteCTAType(siteFields.SiteCTAType)
+                    setSiteCTALink(siteFields.SiteCTALink)
                     setSiteCTAHeading(siteFields.SiteCTAHeading)
                     setSiteColor(siteFields.SiteColor)
                     setSiteServices(siteFields.SiteServices)
@@ -71,6 +73,8 @@ function SiteBuilder() {
             "Name": SiteName,
             "SiteCTA": SiteCTA,
             "SiteCTAHeading": SiteCTAHeading,
+            "SiteCTALink": SiteCTALink,
+            "SiteCTAType": SiteCTAType,
             "SiteColor": SiteColor,
             "SiteHeroHeading": SiteHeroHeading,
             "SiteServices": SiteServices,
@@ -143,6 +147,7 @@ function SiteBuilder() {
                                             SiteName={SiteName} setSiteName={setSiteName}
                                             SiteCTA={SiteCTA} setSiteCTA={setSiteCTA}
                                             SiteCTALink={SiteCTALink} setSiteCTALink={setSiteCTALink}
+                                            SiteCTAType={SiteCTAType} setSiteCTAType={setSiteCTAType}
                                             SiteCTAHeading={SiteCTAHeading} setSiteCTAHeading={setSiteCTAHeading}
                                             SiteColor={SiteColor} setSiteColor={setSiteColor}
                                             SiteHeroHeading={SiteHeroHeading} setSiteHeroHeading={setSiteHeroHeading}
