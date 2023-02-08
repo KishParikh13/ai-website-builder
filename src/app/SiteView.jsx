@@ -40,7 +40,8 @@ function SiteView (props) {
                     SiteColor={site.SiteColor}
                     SiteHeroHeading={site.SiteHeroHeading}
                     SiteHeroSubheading={site.SiteHeroSubheading}
-                    SiteServices={site.SiteServices}
+                    SiteServices={ site.SiteServices ? JSON.parse(site.SiteServices): null}
+                    SiteProjects={ site.SiteProjects ? JSON.parse(site.SiteProjects): null}
                     SiteRecordID={site.SiteRecordID}
                     SiteImages={site.SiteImages}
                     SiteLogo={site.SiteLogo}
