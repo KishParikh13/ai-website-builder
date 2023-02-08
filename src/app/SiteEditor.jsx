@@ -173,21 +173,78 @@ function SiteEditor(props) {
                             name="site_cta"
                             required
                             value={props.SiteCTA}
-                            onChange={e => props.setSiteCTA(e.target.value)}
-                        />
-                        <TextField
-                            className="col-span-full"
-                            type="text"
-                            label="CTA Link"
-                            id="site_cta_link"
-                            name="site_cta_link"
-                            required
-                            value={props.SiteCTALink}
                             onChange={e => {
                                 props.setUnsavedChanges(true);
-                                props.setSiteCTALink(e.target.value)}
-                            }
+                                props.setSiteCTA(e.target.value)
+                            }}
                         />
+
+                        <div className="col-span-full">
+                            <Label className="">
+                                CTA Type
+                            </Label>
+                            <div className='flex gap-4'>
+                                <RadioField
+                                    id={"radio-ctatype-website"}
+                                    label={"Website"}
+                                    name={"radio-ctatype"}
+                                    value={"website"}
+                                    checked={props.SiteCTAType === "website"}
+                                    onChange={e => {
+                                        props.setSiteCTALink("")
+                                        props.setUnsavedChanges(true);
+                                        props.setSiteCTAType("website")
+                                    }}
+                                />
+                                <RadioField
+                                    id={"radio-ctatype-email"}
+                                    label={"Email"}
+                                    name={"radio-ctatype"}
+                                    value={"email"}
+                                    checked={props.SiteCTAType === "email"}
+                                    onChange={e => {
+                                        props.setSiteCTALink("")
+                                        props.setUnsavedChanges(true);
+                                        props.setSiteCTAType("email")
+                                    }}
+                                />
+                            </div>
+                            {
+                                props.SiteCTAType === "website" &&
+                                <TextFieldGroup
+                                    className="mt-4"
+                                    type="text"
+                                    placeholder="google.com"
+                                    label="CTA Link"
+                                    prefix="https://"
+                                    id="site_cta_link"
+                                    name="site_cta_link"
+                                    required
+                                    value={props.SiteCTALink}
+                                    onChange={e => {
+                                        props.setUnsavedChanges(true);
+                                        props.setSiteCTALink(e.target.value)}
+                                    }
+                                />
+                            }
+                            {
+                                props.SiteCTAType === "email" &&
+                                <TextField
+                                    className="mt-4"
+                                    type="text"
+                                    placeholder="elon@tesla.com"
+                                    label="CTA Link"
+                                    id="site_cta_link"
+                                    name="site_cta_link"
+                                    required
+                                    value={props.SiteCTALink}
+                                    onChange={e => {
+                                        props.setUnsavedChanges(true);
+                                        props.setSiteCTALink(e.target.value)}
+                                    }
+                                />
+                            }
+                        </div>
                     </>
                 }
             </form>
