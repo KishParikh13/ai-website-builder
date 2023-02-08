@@ -13,12 +13,10 @@ function SitePreview (props) {
                         <div className="flex items-center">
                             <a href="#">
                                 <span className="text-white font-bold text-lg">{props.OwnerName}</span>
-                                {/* <img className="h-10 w-auto" src={} alt="" /> */}
-
                             </a>
                         </div>
                         <div className="ml-10 space-x-4">
-                            <a href="#" className="inline-block rounded-md border border-transparent bg-white py-2 px-4 text-base font-medium hover:bg-indigo-50">
+                            <a href={props.SiteCTALink} target="_blank" className="inline-block rounded-md border border-transparent bg-white py-2 px-4 text-base font-medium hover:bg-indigo-50">
                                 {props.SiteCTA}
                             </a>
                         </div>
@@ -39,7 +37,7 @@ function SitePreview (props) {
                         {props.SiteHeroSubheading}
                     </h2>
                     <div className="space-x-4 mt-4">
-                        <a href="#" style={{ backgroundColor: '#' }} className="inline-block rounded-md border border-transparent py-2 px-4 text-base font-medium bg-black text-white hover:bg-gray-800">
+                        <a href={props.SiteCTALink} target="_blank" style={{ backgroundColor: '#' }} className="inline-block rounded-md border border-transparent py-2 px-4 text-base font-medium bg-black text-white hover:bg-gray-800">
                             {props.SiteCTA}
                         </a>
                     </div>
