@@ -52,10 +52,25 @@ function ProfileFields(props) {
 }
 
 
+
+
 function SiteEditor(props) {
 
     const [selectedTab, setSelectedTab] = useState('Profile')
     const [saving, setSaving] = useState(false)
+    const [projects, setProjects] = useState([])
+    const [selectedProjectIndex, setSelectedProjectIndex] = useState(-1)
+
+    const updateProjects = (index, whichvalue, newvalue) => {
+        console.log(index)
+        if (index !== -1) {
+        let tempProjects = projects.slice();
+        tempProjects[index][whichvalue] = newvalue;
+        setProjects(tempProjects);
+        } else {
+        console.log('no match');
+        }
+    }
 
     return (
         <div className='flex flex-col gap-4'>
@@ -115,6 +130,42 @@ function SiteEditor(props) {
                                 )
                             })
                         }
+                    </>
+                }
+                {
+                    selectedTab === 'Projects' && <>
+                        <div className="col-span-full">
+                            <label htmlFor="" className="block text-sm font-medium text-gray-700">
+                                Edit or Create Projects
+                            </label>
+                            <div className="mt-3 ">
+                                <div className="bg-white rounded-lg border border-gray-200 text-gray-900">
+                                {
+                                    // map through projects where name isnt empty
+                                    projects && projects.filter( project => project.name !== "").map((project, index) => {
+                                        return (
+                                        <a onClick={e => setSelectedProjectIndex(index + 1)} href="#!" aria-current="true" className=" flex justify-between items-center px-4 py-2 border-b border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer">
+                                            {project.name}
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                            </svg>
+                                        </a>
+                                        )
+                                    })
+                                }
+                                <a href="#!" aria-current="true" className=" flex justify-between items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-b-lg border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer"
+                                onClick={e => {
+                                    setProjects([...projects, {name: `Project ${projects.length}`, description: "", link: "", image: "", color: ""}])
+                                }} 
+                                >
+                                Create project
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                                </a>
+                                </div>
+                            </div>
+                        </div>
                     </>
                 }
                 {

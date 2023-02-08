@@ -83,11 +83,14 @@ function SiteBuilder() {
     return (
         <div>
             { site.fields && <>
-                <DashboardLayout Title={`Edit ${site.fields.Name}`} Content={
+                <DashboardLayout
+                    Title={`Edit ${site.fields.Name}`}
+                    cta={{text: "Preview Site", link: "/", color: "indigo"}}
+                    hideNav={true}
+                    Content={
                     <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
                         <div className="grid grid-cols-1 gap-4">
-                            <section aria-labelledby="section-2-title">
-                                <h2 className="sr-only" id="section-2-title">Section title</h2>
+                            <section>
                                 <div className="overflow-hidden rounded-lg bg-white shadow">
                                     <div className="p-6">
                                         <SiteEditor
