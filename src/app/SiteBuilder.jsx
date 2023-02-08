@@ -40,7 +40,6 @@ function SiteBuilder() {
 
     // load site data from url
     useEffect(() => {
-        console.log(siteID)
         if (siteID !== undefined) {
             loadSite()
         } else {
@@ -81,7 +80,6 @@ function SiteBuilder() {
         })
         .then (response => {
             loadSite()
-            console.log(response)
         })
     }
 
