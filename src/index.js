@@ -6,7 +6,7 @@ import Home from "./app/Home";
 import Login from "./app/Login";
 import Register from "./app/Register";
 import Dashboard from "./app/Dashboard";
-import GenerateSite from "./app/GenerateSite";
+import GenerateSite from "./app/SiteGenerator";
 import SiteBuilder from './app/SiteBuilder';
 import SiteView from './app/SiteView';
 

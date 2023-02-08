@@ -103,7 +103,7 @@ function GenerateSiteAndRedirect() {
         // services
         getOpenAICompletion({
             "model": "text-davinci-003",
-            "prompt": `4 services with descriptions that "John", who describes themself as ${"a clown"}, offers: "${"entertainment"}"`,
+            "prompt": `4 services with descriptions that describes a ${selfDescription}, offers: "${siteGoal}"`,
             "temperature": 0,
             "max_tokens": 200
         }).then(response => {
