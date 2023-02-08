@@ -141,7 +141,7 @@ function SiteDisplay (props) {
         return (
             <section id="footer" style={{ backgroundColor: 'black' }} className='px-8 py-8 text-white '>
                 <div className='mx-auto max-w-7xl '>
-                    © Name {new Date().getFullYear()}
+                    © {props.OwnerName} {new Date().getFullYear()}
                 </div>
             </section>
         )
