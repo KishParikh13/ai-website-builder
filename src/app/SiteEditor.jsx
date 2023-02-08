@@ -51,9 +51,6 @@ function ProfileFields(props) {
     )
 }
 
-
-
-
 function SiteEditor(props) {
 
     const [selectedTab, setSelectedTab] = useState('Profile')
@@ -64,11 +61,11 @@ function SiteEditor(props) {
     const updateProjects = (index, whichvalue, newvalue) => {
         console.log(index)
         if (index !== -1) {
-        let tempProjects = projects.slice();
-        tempProjects[index][whichvalue] = newvalue;
-        setProjects(tempProjects);
+            let tempProjects = projects.slice();
+            tempProjects[index][whichvalue] = newvalue;
+            setProjects(tempProjects);
         } else {
-        console.log('no match');
+            console.log('no match');
         }
     }
 
@@ -89,7 +86,10 @@ function SiteEditor(props) {
                             name="site_name"
                             required
                             value={props.SiteName}
-                            onChange={e => props.setSiteName(e.target.value)}
+                            onChange={e => {
+                                props.setUnsavedChanges(true);
+                                props.setSiteName(e.target.value)}
+                            }
                         />
                         <TextArea
                             className="col-span-full"
@@ -98,7 +98,10 @@ function SiteEditor(props) {
                             name="site_hero_heading"
                             required
                             value={props.SiteHeroHeading}
-                            onChange={e => props.setSiteHeroHeading(e.target.value)}
+                            onChange={e => {
+                                props.setUnsavedChanges(true);
+                                props.setSiteHeroHeading(e.target.value)}
+                            }
                         />
                         <TextArea
                             className="col-span-full"
@@ -107,7 +110,10 @@ function SiteEditor(props) {
                             name="site_hero_subheading"
                             required
                             value={props.SiteHeroSubheading}
-                            onChange={e => props.setSiteHeroSubheading(e.target.value)}
+                            onChange={e => {
+                                props.setUnsavedChanges(true);
+                                props.setSiteHeroSubheading(e.target.value)}
+                            }
                         />
                         {
                             false && props.SiteServices && props.SiteServices.split('\n').filter(service => service.length > 0).map((service, index) => {
@@ -122,6 +128,7 @@ function SiteEditor(props) {
                                         required
                                         value={service}
                                         onChange={e => {
+                                            props.setUnsavedChanges(true);
                                             let services = props.SiteServices.split('\n');
                                             services[index] = e.target.value;
                                             props.setSiteServices(services.join('\n'));
@@ -188,38 +195,13 @@ function SiteEditor(props) {
                             name="site_cta_link"
                             required
                             value={props.SiteCTALink}
-                            onChange={e => props.setSiteCTALink(e.target.value)}
+                            onChange={e => {
+                                props.setUnsavedChanges(true);
+                                props.setSiteCTALink(e.target.value)}
+                            }
                         />
                     </>
                 }
-                
-                <div className="col-span-full">
-                    <Button
-                        type="button"
-                        variant="solid"
-                        color= { saving ? "green" : "slate" }
-                        className="w-full"
-                        onClick={e => {
-                            setSaving(true)
-                            props.saveChanges()
-                            setTimeout(() => setSaving(false), 2000)
-                        }}
-                    >
-                        <span>
-                            {
-                                saving ? <div className='flex items-center gap-2'>
-                                    Saving...
-                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                                    </svg>
-                                </div>
-                                :
-                                <>Save changes <span aria-hidden="true">&uarr;</span></>
-                            }
-                        </span>
-                    </Button>
-                </div>
             </form>
         </div>
     )

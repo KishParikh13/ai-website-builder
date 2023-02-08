@@ -53,12 +53,10 @@ function DashboardLayout(props) {
                                 }
                                 <h1 className="text-3xl font-bold tracking-tight text-white">{props.Title}</h1>
                             </div>
-                            {
-                                props.cta &&
-                                <Button href={props.cta.link} target={props.cta.target} color={props.cta.color}>
-                                    {props.cta.text}
-                                </Button>
-                            }
+                            <div className="flex items-center gap-4">
+                                {props.cta2}
+                                {props.cta1}
+                            </div>
                         </div>
                     </header>
                 </div>

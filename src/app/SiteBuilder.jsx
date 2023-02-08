@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import { Airtable } from '../api/Airtable';
 import SiteDisplay from './SiteDisplay';
+import { Button } from '../components/Button';
 import Logo from '../components/Logo';
 import DashboardLayout from './shared/DashboardLayout';
 import SiteEditor from './SiteEditor';
@@ -29,6 +30,9 @@ function SiteBuilder() {
     const [SiteRecordID, setSiteRecordID] = useState('');
     const [SiteImages, setSiteImages] = useState('');
     const [SiteLogo, setSiteLogo] = useState('');
+
+    const [saving, setSaving] = useState(false);
+    const [unsavedChanges, setUnsavedChanges] = useState(false);
 
     const cleanString = (str) => {
         return str.replace(/(\r\n|\n|\r)/gm, "")
@@ -85,7 +89,48 @@ function SiteBuilder() {
             { site.fields && <>
                 <DashboardLayout
                     Title={`Edit ${site.fields.Name}`}
-                    cta={{text: "Preview Site", target: "_blank", link: `/view/${siteID}`, color: "indigo"}}
+                    // cta1={{text: "Preview Site", target: "_blank", link: `/view/${siteID}`, color: "indigo"}}
+                    cta1={
+                        <Button
+                            type="button"
+                            variant="solid"
+                            target= "_blank"
+                            href= {`/view/${siteID}`}
+                            color= "indigo"
+                        >
+                            <span>View site</span>
+                        </Button>
+                    }
+                    cta2={
+                        <Button
+                            type="button"
+                            variant="solid"
+                            color= { saving ? "green" : "slate" }
+                            className={ unsavedChanges ? ' ' : 'hidden'}
+                            onClick={e => {
+                                setSaving(true)
+                                saveSiteChanges()
+                                setTimeout(() => {
+                                    setSaving(false)
+                                    setUnsavedChanges(false);
+                                }, 2000)
+                            }}
+                        >
+                            <span>
+                                {
+                                    saving ? <div className='flex items-center gap-2'>
+                                        Saving...
+                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                        </svg>
+                                    </div>
+                                    :
+                                    <> Save changes <span aria-hidden="true">&uarr;</span> </>
+                                }
+                            </span>
+                        </Button>
+                    }
                     hideNav={true}
                     Content={
                     <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
@@ -94,7 +139,7 @@ function SiteBuilder() {
                                 <div className="overflow-hidden rounded-lg bg-white shadow">
                                     <div className="p-6">
                                         <SiteEditor
-                                            saveChanges={saveSiteChanges}
+                                            unsavedChanges={unsavedChanges} setUnsavedChanges={setUnsavedChanges}
                                             OwnerName={OwnerName} setOwnerName={setOwnerName}
                                             SiteName={SiteName} setSiteName={setSiteName}
                                             SiteCTA={SiteCTA} setSiteCTA={setSiteCTA}
