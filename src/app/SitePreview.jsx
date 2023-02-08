@@ -3,7 +3,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-function SitePreview(site) {
+function SitePreview (props) {
 
     const SiteNav = () => {
         return (
@@ -12,13 +12,15 @@ function SitePreview(site) {
                     <div className="flex w-full items-center justify-between py-3 lg:border-none">
                         <div className="flex items-center">
                             <a href="#">
-                                <span className="text-white font-bold text-lg">Your Company</span>
+                                <span className="text-white font-bold text-lg">{props.OwnerName}</span>
                                 {/* <img className="h-10 w-auto" src={} alt="" /> */}
 
                             </a>
                         </div>
                         <div className="ml-10 space-x-4">
-                            <a href="#" className="inline-block rounded-md border border-transparent bg-white py-2 px-4 text-base font-medium hover:bg-indigo-50">CTA</a>
+                            <a href="#" className="inline-block rounded-md border border-transparent bg-white py-2 px-4 text-base font-medium hover:bg-indigo-50">
+                                {props.SiteCTA}
+                            </a>
                         </div>
                     </div>
                 </nav>
@@ -31,14 +33,14 @@ function SitePreview(site) {
             <section id="hero" style={{ backgroundColor: '#' + '3F' }} className='px-8 py-16  '>
                 <div className="mx-auto max-w-7xl  flex flex-col gap-1">
                     <h1 className='text-4xl font-bold mb-4 max-w-5xl'>
-                        Heading
+                        {props.SiteHeroHeading}
                     </h1>
                     <h2 className=' opacity-70 max-w-5xl'>
-                        Subheading
+                        {props.SiteHeroSubheading}
                     </h2>
                     <div className="space-x-4 mt-4">
                         <a href="#" style={{ backgroundColor: '#' }} className="inline-block rounded-md border border-transparent py-2 px-4 text-base font-medium bg-black text-white hover:bg-gray-800">
-                            CTA
+                            {props.SiteCTA}
                         </a>
                     </div>
                 </div>
@@ -48,8 +50,7 @@ function SitePreview(site) {
 
     const SiteImageGallery = () => {
         return (
-
-            <section id="image-gallery" style={{ backgroundColor: '' }} className='bg-gray-800 px-8 py-16  '>
+            <section id="image-gallery" style={{ backgroundColor: '' }} className={`bg-gray-800 px-8 py-16 `+ (props.SiteImageGallery ?  '' : 'hidden')}>
                 <div className="mx-auto max-w-7xl grid grid-cols-2 gap-2">
                     {
                         [1,2,3].map((image, index) => {
@@ -67,7 +68,7 @@ function SitePreview(site) {
 
     const SiteProjectsGallery = () => {
         return (
-            <section id="projects-gallery" style={{ backgroundColor: '#' + 'FFFFFF' + '6F' }} className='px-8 py-16  '>
+            <section id="projects-gallery" style={{ backgroundColor: '#' + 'FFFFFF' + '6F' }} className={`px-8 py-16 `+ (props.SiteProjectsGallery ?  '' : 'hidden')}>
                 <div className="mx-auto max-w-7xl">
 
                     <h2 className='text-3xl font-bold mb-4'>
@@ -98,7 +99,7 @@ function SitePreview(site) {
 
     const SiteServices = () => {
         return (
-            <section id="services" style={{ backgroundColor: '#' + 'FFFFFF' + '3F' }} className='px-8 py-16 w-full'>
+            <section id="services" style={{ backgroundColor: '#' + 'FFFFFF' + '3F' }} className={`px-8 py-16 w-full `+ (props.SiteServices ?  '' : 'hidden')}>
                 <div className=" flex flex-col gap-1 ">
                     <div className='mx-auto max-w-7xl '>
                         <h2 className='text-3xl font-bold mb-4'>
@@ -106,7 +107,7 @@ function SitePreview(site) {
                         </h2>
                         <ul className='grid grid-cols-2 gap-4'>
                             {
-                                [1,2,3].map((service, index) => {
+                                props.SiteServices && props.SiteServices.split('\n').filter(service => service.length > 0).map((service, index) => {
                                     return (
                                         <li key={index} className="p-4 bg-gray-200 rounded-md">
                                             {service}. Product Strategy: For those looking to test an idea, explore growth strategies, analyze and optimize processes, or clarify overall product direction.
@@ -126,11 +127,11 @@ function SitePreview(site) {
             <section id="cta" style={{ backgroundColor: '' }} className='bg-gray-800 text-white px-8 py-16 '>
                 <div className="mx-auto max-w-7xl flex flex-col gap-1">
                     <h2 className='text-3xl font-bold mb-4 max-w-5xl'>
-                        CTA Heading
+                        {props.SiteCTAHeading}
                     </h2>
                     <div className="space-x-4 mt-4 max-w-5xl">
                         <a href="#" className="inline-block rounded-md border border-transparent py-2 px-4 text-base font-medium bg-white text-black hover:bg-gray-50">
-                            CTA
+                            {props.SiteCTA}
                         </a>
                     </div>
                 </div>
