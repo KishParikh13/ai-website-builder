@@ -161,7 +161,7 @@ function SiteDisplay (props) {
             <SiteImageGallery />
             <SiteProjectsGallery />
             <SiteServices />
-            <SiteCTA />
+            {/* <SiteCTA /> */}
             <SiteFooter />
         </div>
     )
