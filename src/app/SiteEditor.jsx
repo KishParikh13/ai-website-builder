@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { TextArea, TextField } from '../components/Fields';
+import { TextArea, TextField, TextFieldGroup, RadioField, RadioGroup, Label } from '../components/Fields';
 import { Button } from '../components/Button';
 
 const tabs = [
@@ -25,20 +25,20 @@ const tabs = [
 
 function TabsMenu(props) {
     return (
-        <div class="flex rounded-md shadow-sm" role="group">
-            <button type="button" onClick={e => props.setSelectedTab(tabs[0].name)} class={(props.selectedTab === tabs[0].name ? "bg-blue-800 text-white" : "bg-white text-black") + " flex-grow px-4 py-2 text-sm font-medium border border-gray-200 rounded-l-lg"}>
+        <div className="flex rounded-md shadow-sm" role="group">
+            <button type="button" onClick={e => props.setSelectedTab(tabs[0].name)} className={(props.selectedTab === tabs[0].name ? "bg-blue-800 text-white" : "bg-white text-black") + " flex-grow px-4 py-2 text-sm font-medium border border-gray-200 rounded-l-lg"}>
                 {tabs[0].name}
             </button>
             {
                 tabs.slice(1, tabs.length-1).map((tab, index) => {
                     return (
-                        <button key={index} type="button" onClick={e => props.setSelectedTab(tab.name)} class={(props.selectedTab === tab.name ? "bg-blue-800 text-white" : "bg-white text-black") + " flex-grow px-4 py-2 text-sm font-medium border-t border-b border-gray-200"}>
+                        <button key={index} type="button" onClick={e => props.setSelectedTab(tab.name)} className={(props.selectedTab === tab.name ? "bg-blue-800 text-white" : "bg-white text-black") + " flex-grow px-4 py-2 text-sm font-medium border-t border-b border-gray-200"}>
                             {tab.name}
                         </button>
                     )
                 })
             }
-            <button type="button" onClick={e => props.setSelectedTab(tabs[2].name)} class={(props.selectedTab === tabs[2].name ? "bg-blue-800 text-white" : "bg-white text-black") + " flex-grow px-4 py-2 text-sm font-medium border border-gray-200 rounded-r-md"}>
+            <button type="button" onClick={e => props.setSelectedTab(tabs[2].name)} className={(props.selectedTab === tabs[2].name ? "bg-blue-800 text-white" : "bg-white text-black") + " flex-grow px-4 py-2 text-sm font-medium border border-gray-200 rounded-r-md"}>
                 {tabs[tabs.length-1].name}
             </button>
         </div>
@@ -168,7 +168,20 @@ function SiteEditor(props) {
                         <TextField
                             className="col-span-full"
                             type="text"
-                            label="Call to action"
+                            label="Name of site"
+                            id="site_name"
+                            name="site_name"
+                            required
+                            value={props.SiteName}
+                            onChange={e => {
+                                props.setUnsavedChanges(true);
+                                props.setSiteName(e.target.value)}
+                            }
+                        />
+                        <TextField
+                            className="col-span-full"
+                            type="text"
+                            label="Call to action text"
                             id="site_cta"
                             name="site_cta"
                             required
