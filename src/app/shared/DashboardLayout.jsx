@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
 import Logo from "../../components/Logo";
-import { Airtable } from "../../api/Airtable";
 
 function DashboardLayout(props) {
 
