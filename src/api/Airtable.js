@@ -24,11 +24,28 @@ export class Airtable {
         });
     }
 
+    // update site by id
+    updateSiteByID = (siteID, fields) => {
+        return new Promise((resolve, reject) => {
+            let data = {
+                fields: fields
+            }
+            axios.patch(`${this.url}/Portfolios/${siteID}`, data, this.config)
+                .then(x => {
+                    resolve(x.data);
+                })
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+
     // get all sites for user
     getSitesForUser = (userID) => {
         return new Promise((resolve, reject) => {
             let filterByFormula = `filterByFormula=%7BOwnerID%7D%3D%22${userID}%22`
-            console.log(decodeURIComponent(filterByFormula) , userID)
             axios.get(`${this.url}/Portfolios?${filterByFormula}`, this.config)
                 .then(x => {
                     resolve(x.data.records);
