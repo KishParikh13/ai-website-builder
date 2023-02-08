@@ -40,7 +40,7 @@ function SiteEditor(site) {
                         className="w-full"
                     >
                         <span>
-                            <span aria-hidden="true">&larr;</span> Save changes
+                            Save changes <span aria-hidden="true">&rarr;</span>
                         </span>
                     </Button>
                 </div>
