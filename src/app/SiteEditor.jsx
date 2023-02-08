@@ -78,19 +78,6 @@ function SiteEditor(props) {
             <form className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                 {
                     selectedTab === 'Profile' && <>
-                        <TextField
-                            className="col-span-full"
-                            type="text"
-                            label="Name of site"
-                            id="site_name"
-                            name="site_name"
-                            required
-                            value={props.SiteName}
-                            onChange={e => {
-                                props.setUnsavedChanges(true);
-                                props.setSiteName(e.target.value)}
-                            }
-                        />
                         <TextArea
                             className="col-span-full"
                             label="Hero Heading"
