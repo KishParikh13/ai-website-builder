@@ -26,10 +26,8 @@ function Register () {
 
     base.createUser(first, last, email, password, option)
      .then(response => {
-       // save response to session storage
-       sessionStorage.setItem('user', JSON.stringify(response))
-
-       window.location.href = '/dashboard'
+        sessionStorage.setItem('user', JSON.stringify(response))
+        window.location.href = '/new'
      })
   }
 
