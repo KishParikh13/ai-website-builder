@@ -81,24 +81,24 @@ function GenerateSiteAndRedirect() {
         })
 
         // button text
-        getOpenAICompletion({
-            "model": "text-davinci-003",
-            "prompt": `Turn the following text into a 2-3 word call to action for a website button (e.g. Contact Me, Learn More, Get in Touch): ${"buy stuff"}`,
-            "temperature": 0.5,
-            "max_tokens": 3
-        }).then(response => {
-            AIGeneratedContent["SiteCTA"] = JSON.parse(response).choices[0].text
-        })
+        // getOpenAICompletion({
+        //     "model": "text-davinci-003",
+        //     "prompt": `Turn the following text into a 2-3 word call to action for a website button (e.g. Contact Me, Learn More, Get in Touch): ${"buy stuff"}`,
+        //     "temperature": 0.5,
+        //     "max_tokens": 3
+        // }).then(response => {
+            AIGeneratedContent["SiteCTA"] = "Contact me" // JSON.parse(response).choices[0].text
+        // })
 
         // cta section header
-        getOpenAICompletion({
-            "model": "text-davinci-003",
-            "prompt": `One sentence convincing someone to perform the following action on a website: "buy stuff"`,
-            "temperature": 0.5,
-            "max_tokens": 60
-        }).then(response => {
-            AIGeneratedContent["SiteCTAHeading"] = JSON.parse(response).choices[0].text
-        })
+        // getOpenAICompletion({
+        //     "model": "text-davinci-003",
+        //     "prompt": `One sentence convincing someone to perform the following action on a website: "buy stuff"`,
+        //     "temperature": 0.5,
+        //     "max_tokens": 60
+        // }).then(response => {
+            AIGeneratedContent["SiteCTAHeading"] = "" // JSON.parse(response).choices[0].text
+        // })
 
         // services
         getOpenAICompletion({
