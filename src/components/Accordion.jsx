@@ -12,7 +12,7 @@ const Accordion = ({ title, content }) => {
 
   return (
     <div className="">
-      <div onClick={HandleOpening}  className={" flex justify-between items-center px-4 py-2 border-b border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer"}>
+      <div onClick={HandleOpening}  className={"bg-gray-50 flex justify-between items-center px-4 py-2 border-b border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer"}>
         <h4 className="font-semibold">{title}</h4>
         {isOpened ?
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -29,7 +29,7 @@ const Accordion = ({ title, content }) => {
         style={{ height: height }}
         className="overflow-hidden transition-all duration-200"
       >
-        <p className="p-4">{content}</p>
+        <div className="p-4">{content}</div>
       </div>
     </div>
   )
