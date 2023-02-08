@@ -80,6 +80,7 @@ function SiteBuilder() {
             "SiteLogo": SiteLogo
         })
         .then (response => {
+            loadSite()
             console.log(response)
         })
     }
