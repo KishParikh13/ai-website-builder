@@ -7,8 +7,8 @@ function SiteDisplay (props) {
 
     const SiteNav = () => {
         return (
-            <header className="" style={{ backgroundColor: 'black' }}>
-                <nav className="mx-auto max-w-7xl px-6 lg:px-8" aria-label="Top">
+            <header className=" px-8 " style={{ backgroundColor: 'black' }}>
+                <nav className="mx-auto max-w-3xl " aria-label="Top">
                     <div className="flex w-full items-center justify-between py-3 lg:border-none">
                         <div className="flex items-center">
                             <a href="#">
@@ -29,11 +29,11 @@ function SiteDisplay (props) {
     const SiteHero = () => {
         return (
             <section id="hero" style={{ backgroundColor: '#' + '3F' }} className='px-8 py-16  '>
-                <div className="mx-auto max-w-7xl  flex flex-col gap-1">
-                    <h1 className='text-4xl font-bold mb-4 max-w-5xl'>
+                <div className="mx-auto max-w-3xl  flex flex-col gap-1">
+                    <h1 className='text-4xl font-bold mb-4 max-w-3xl'>
                         {props.SiteHeroHeading}
                     </h1>
-                    <h2 className=' opacity-70 max-w-5xl'>
+                    <h2 className=' opacity-70 max-w-xl'>
                         {props.SiteHeroSubheading}
                     </h2>
                     <div className="space-x-4 mt-4">
@@ -49,7 +49,7 @@ function SiteDisplay (props) {
     const SiteImageGallery = () => {
         return (
             <section id="image-gallery" style={{ backgroundColor: '' }} className={`bg-gray-800 px-8 py-16 `+ (props.SiteImageGallery ?  '' : 'hidden')}>
-                <div className="mx-auto max-w-7xl grid grid-cols-2 gap-2">
+                <div className="mx-auto max-w-3xl grid grid-cols-2 gap-2">
                     {
                         [1,2,3].map((image, index) => {
                             return (
@@ -66,25 +66,27 @@ function SiteDisplay (props) {
 
     const SiteProjectsGallery = () => {
         return (
-            <section id="projects-gallery" style={{ backgroundColor: '#' + 'FFFFFF' + '6F' }} className={`px-8 py-16 `+ (props.SiteProjectsGallery ?  '' : 'hidden')}>
-                <div className="mx-auto max-w-7xl">
+            <section id="projects-gallery" style={{ backgroundColor: '#' + 'FFFFFF' + '6F' }} className={`px-8 py-16 `+ (props.SiteProjects ?  '' : 'hidden')}>
+                <div className="mx-auto max-w-3xl">
 
                     <h2 className='text-3xl font-bold mb-4'>
                         Projects
                     </h2>
                     <div className=' grid grid-cols-2 gap-2'>
                     {
-                        [1,2,3].filter(project => project > 0).map((project, index) => {
+                        props.SiteProjects && props.SiteProjects.map((project, index) => {
                             return (
-                                <div key={index} className=" bg-slate-200 p-4 rounded-md flex flex-col gap-2">
-                                    <img className='object-fit rounded-md flex-grow' style={{ backgroundColor: '' + 'green'}} src={""} />
+                                <div key={index} className=" bg-slate-200 text-black p-4 rounded-md flex flex-col gap-2">
+                                    {
+                                        project.image && <img className='object-fit h-48 w-full rounded-md' style={{ backgroundColor: '' + 'green'}} src={"https://" + project.image} />
+                                    }
                                     <h3 className=' text-base font-bold'>
-                                        {project}
+                                        {project.name}
                                     </h3>
                                     <p className=' opacity-70'>
-                                        Increasing conversion and facilitating business operations through a website rebuild
+                                        {project.description}
                                     </p>
-                                    <a href={""} target="_blank" className=' inline-flex justify-center rounded-md bg-slate-600 hover:bg-slate-500 py-4 px-4 text-sm font-medium text-white shadow-sm'>View</a>
+                                    <a href={"https://" + project.link} target="_blank" className='underline '>View</a>
                                 </div>
                             )
                         })
@@ -99,7 +101,7 @@ function SiteDisplay (props) {
         return (
             <section id="services" style={{ backgroundColor: '#' + 'FFFFFF' + '3F' }} className={`px-8 py-16 w-full `+ (props.SiteServices ?  '' : 'hidden')}>
                 <div className=" flex flex-col gap-1 ">
-                    <div className='mx-auto max-w-7xl '>
+                    <div className='mx-auto max-w-3xl '>
                         <h2 className='text-3xl font-bold mb-4'>
                             Services
                         </h2>
@@ -123,11 +125,11 @@ function SiteDisplay (props) {
     const SiteCTA = () => {
         return (
             <section id="cta" style={{ backgroundColor: '' }} className='bg-gray-800 text-white px-8 py-16 '>
-                <div className="mx-auto max-w-7xl flex flex-col gap-1">
-                    <h2 className='text-3xl font-bold mb-4 max-w-5xl'>
+                <div className="mx-auto max-w-3xl flex flex-col gap-1">
+                    <h2 className='text-3xl font-bold mb-4 max-w-3xl'>
                         {props.SiteCTAHeading}
                     </h2>
-                    <div className="space-x-4 mt-4 max-w-5xl">
+                    <div className="space-x-4 mt-4 max-w-3xl">
                         <a href="#" className="inline-block rounded-md border border-transparent py-2 px-4 text-base font-medium bg-white text-black hover:bg-gray-50">
                             {props.SiteCTA}
                         </a>
@@ -140,7 +142,7 @@ function SiteDisplay (props) {
     const SiteFooter = () => {
         return (
             <section id="footer" style={{ backgroundColor: 'black' }} className='px-8 py-8 text-white '>
-                <div className='mx-auto max-w-7xl '>
+                <div className='mx-auto max-w-3xl '>
                     © {props.OwnerName} {new Date().getFullYear()}
                 </div>
             </section>

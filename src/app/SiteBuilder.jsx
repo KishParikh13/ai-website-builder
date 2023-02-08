@@ -32,6 +32,7 @@ function SiteBuilder() {
     const [SiteRecordID, setSiteRecordID] = useState('');
     const [SiteImages, setSiteImages] = useState('');
     const [SiteLogo, setSiteLogo] = useState('');
+    const [SiteProjects, setSiteProjects] = useState([]);
 
     const [saving, setSaving] = useState(false);
     const [unsavedChanges, setUnsavedChanges] = useState(false);
@@ -67,6 +68,7 @@ function SiteBuilder() {
                     setSiteRecordID(siteFields.SiteRecordID)
                     setSiteImages(siteFields.SiteImages)
                     setSiteLogo(siteFields.SiteLogo)
+                    setSiteProjects(JSON.parse(siteFields.SiteProjects))
 
                     setLastUpdated(siteFields.Updated)
                 })
@@ -84,7 +86,8 @@ function SiteBuilder() {
             "SiteServices": SiteServices,
             "SiteHeroSubheading": SiteHeroSubheading,
             "SiteImages": SiteImages,
-            "SiteLogo": SiteLogo
+            "SiteLogo": SiteLogo,
+            "SiteProjects": JSON.stringify(SiteProjects)
         })
         .then (response => {
             loadSite()
@@ -160,6 +163,7 @@ function SiteBuilder() {
                                             OwnerName={OwnerName} setOwnerName={setOwnerName}
                                             SiteName={SiteName} setSiteName={setSiteName}
                                             SiteCTA={SiteCTA} setSiteCTA={setSiteCTA}
+                                            SiteProjects={SiteProjects} setSiteProjects={setSiteProjects}
                                             SiteCTALink={SiteCTALink} setSiteCTALink={setSiteCTALink}
                                             SiteCTAType={SiteCTAType} setSiteCTAType={setSiteCTAType}
                                             SiteCTAHeading={SiteCTAHeading} setSiteCTAHeading={setSiteCTAHeading}
@@ -188,6 +192,7 @@ function SiteBuilder() {
                                                 SiteCTA={SiteCTA}
                                                 SiteCTALink={(SiteCTAType === "website" ? "https://" : "mailto:")  + SiteCTALink}
                                                 SiteCTAHeading={SiteCTAHeading}
+                                                SiteProjects={SiteProjects}
                                                 SiteColor={SiteColor}
                                                 SiteHeroHeading={SiteHeroHeading}
                                                 SiteHeroSubheading={SiteHeroSubheading}

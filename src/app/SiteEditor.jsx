@@ -4,6 +4,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { TextArea, TextField, TextFieldGroup, RadioField, RadioGroup, Label } from '../components/Fields';
 import { Button } from '../components/Button';
+import Accordion from '../components/Accordion';
 
 const tabs = [
     {
@@ -54,20 +55,17 @@ function ProfileFields(props) {
 function SiteEditor(props) {
 
     const [selectedTab, setSelectedTab] = useState('Profile')
-    const [saving, setSaving] = useState(false)
-    const [projects, setProjects] = useState([])
-    const [selectedProjectIndex, setSelectedProjectIndex] = useState(-1)
 
-    // const updateProjects = (index, whichvalue, newvalue) => {
-    //     console.log(index)
-    //     if (index !== -1) {
-    //         let tempProjects = projects.slice();
-    //         tempProjects[index][whichvalue] = newvalue;
-    //         setProjects(tempProjects);
-    //     } else {
-    //         console.log('no match');
-    //     }
-    // }
+    const updateProjects = (index, whichvalue, newvalue) => {
+        console.log(index)
+        if (index !== -1) {
+            let tempProjects = props.SiteProjects.slice();
+            tempProjects[index][whichvalue] = newvalue;
+            props.setSiteProjects(tempProjects);
+        } else {
+            console.log('no match');
+        }
+    }
 
     return (
         <div className='flex flex-col gap-4'>
@@ -135,22 +133,70 @@ function SiteEditor(props) {
                             </label>
                             <div className="mt-3 ">
                                 <div className="bg-white rounded-lg border border-gray-200 text-gray-900">
+                                
                                 {
-                                    // map through projects where name isnt empty
-                                    projects && projects.filter( project => project.name !== "").map((project, index) => {
-                                        return (
-                                        <a onClick={e => setSelectedProjectIndex(index + 1)} href="#!" aria-current="true" className=" flex justify-between items-center px-4 py-2 border-b border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer">
-                                            {project.name}
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                            </svg>
-                                        </a>
-                                        )
-                                    })
+                                    props.SiteProjects && props.SiteProjects.filter( project => project.name !== "").map((project, index) => (
+                                        <Accordion
+                                            key={index}
+                                            title={project.name}
+                                            content={
+                                                <div className='flex flex-col gap-y-6'>
+                                                    <TextField
+                                                        className="col-span-full"
+                                                        type="text"
+                                                        label="Name"
+                                                        id={`project_name_${index}`}
+                                                        name={`project_name_${index}`}
+                                                        required
+                                                        value={project.name}
+                                                        onChange={e => {
+                                                            updateProjects(index, "name", e.target.value);
+                                                        }}
+                                                    />
+                                                    <TextArea
+                                                        className="col-span-full"
+                                                        label="Description"
+                                                        id={`project_description_${index}`}
+                                                        name={`project_description_${index}`}
+                                                        rows="4"
+                                                        required
+                                                        value={project.description}
+                                                        onChange={e => {
+                                                            updateProjects(index, "description", e.target.value);
+                                                        }}
+                                                    />
+                                                    <TextFieldGroup
+                                                        className="col-span-full"
+                                                        label="Image URL"
+                                                        prefix="https://"
+                                                        id={`project_img_${index}`}
+                                                        name={`project_img_${index}`}
+                                                        required
+                                                        value={project.image}
+                                                        onChange={e => {
+                                                            updateProjects(index, "image", e.target.value);
+                                                        }}
+                                                    />
+                                                    <TextFieldGroup
+                                                        className="col-span-full"
+                                                        label="Link"
+                                                        prefix="https://"
+                                                        id={`project_link_${index}`}
+                                                        name={`project_link_${index}`}
+                                                        required
+                                                        value={project.link}
+                                                        onChange={e => {
+                                                            updateProjects(index, "link", e.target.value);
+                                                        }}
+                                                    />
+                                                </div>
+                                            }
+                                        />
+                                    ))
                                 }
                                 <a href="#!" aria-current="true" className=" flex justify-between items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-b-lg border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer"
                                 onClick={e => {
-                                    setProjects([...projects, {name: `Project ${projects.length}`, description: "", link: "", image: "", color: ""}])
+                                    props.setSiteProjects([...props.SiteProjects, {name: `Project ${props.SiteProjects.length}`, description: "", link: "", image: "", color: ""}])
                                 }} 
                                 >
                                 Create project
