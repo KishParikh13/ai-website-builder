@@ -3,7 +3,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-function SitePreview (props) {
+function SiteDisplay (props) {
 
     const SiteNav = () => {
         return (
@@ -156,17 +156,15 @@ function SitePreview (props) {
 
     return (
         <div>
-            <div className="border-4 border-slate-800 rounded-lg shadow-xl">
-                <SiteNav />
-                <SiteHero />
-                <SiteImageGallery />
-                <SiteProjectsGallery />
-                <SiteServices />
-                <SiteCTA />
-                <SiteFooter />
-            </div>
+            <SiteNav />
+            <SiteHero />
+            <SiteImageGallery />
+            <SiteProjectsGallery />
+            <SiteServices />
+            <SiteCTA />
+            <SiteFooter />
         </div>
     )
 }
 
-export default SitePreview;
+export default SiteDisplay;

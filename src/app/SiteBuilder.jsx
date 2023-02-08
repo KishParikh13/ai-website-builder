@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom'
 import { Airtable } from '../api/Airtable';
-import SitePreview from './SitePreview';
+import SiteDisplay from './SiteDisplay';
 import Logo from '../components/Logo';
 import DashboardLayout from './shared/DashboardLayout';
 import SiteEditor from './SiteEditor';
@@ -85,7 +85,7 @@ function SiteBuilder() {
             { site.fields && <>
                 <DashboardLayout
                     Title={`Edit ${site.fields.Name}`}
-                    cta={{text: "Preview Site", link: "/", color: "indigo"}}
+                    cta={{text: "Preview Site", target: "_blank", link: `/view/${siteID}`, color: "indigo"}}
                     hideNav={true}
                     Content={
                     <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
@@ -118,20 +118,22 @@ function SiteBuilder() {
                                 <h2 className="sr-only" id="section-1-title">Site Preview</h2>
                                 <div className="overflow-hidden rounded-lg bg-white shadow">
                                     <div className="p-6">
-                                        <SitePreview
-                                            OwnerName={OwnerName}
-                                            SiteName={SiteName}
-                                            SiteCTA={SiteCTA}
-                                            SiteCTALink={SiteCTALink}
-                                            SiteCTAHeading={SiteCTAHeading}
-                                            SiteColor={SiteColor}
-                                            SiteHeroHeading={SiteHeroHeading}
-                                            SiteHeroSubheading={SiteHeroSubheading}
-                                            SiteServices={SiteServices}
-                                            SiteRecordID={SiteRecordID}
-                                            SiteImages={SiteImages}
-                                            SiteLogo={SiteLogo}
-                                        />
+                                        <div className="border-4 border-slate-800 rounded-lg shadow-xl">
+                                            <SiteDisplay
+                                                OwnerName={OwnerName}
+                                                SiteName={SiteName}
+                                                SiteCTA={SiteCTA}
+                                                SiteCTALink={SiteCTALink}
+                                                SiteCTAHeading={SiteCTAHeading}
+                                                SiteColor={SiteColor}
+                                                SiteHeroHeading={SiteHeroHeading}
+                                                SiteHeroSubheading={SiteHeroSubheading}
+                                                SiteServices={SiteServices}
+                                                SiteRecordID={SiteRecordID}
+                                                SiteImages={SiteImages}
+                                                SiteLogo={SiteLogo}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </section>

@@ -55,7 +55,7 @@ function DashboardLayout(props) {
                             </div>
                             {
                                 props.cta &&
-                                <Button href={props.cta.link} text={props.buttonText}  color={props.cta.color}>
+                                <Button href={props.cta.link} target={props.cta.target} color={props.cta.color}>
                                     {props.cta.text}
                                 </Button>
                             }
