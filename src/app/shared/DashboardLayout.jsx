@@ -18,7 +18,7 @@ function DashboardLayout(props) {
                         <nav className="bg-gray-800">
                             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                                 <div className="border-b border-gray-700">
-                                    <div className="flex h-16 items-center justify-between px-4 sm:px-0">
+                                    <div className=" flex h-16 items-center justify-between px-4 sm:px-0 ">
                                         <div className="flex items-center">
                                             <a href="/dashboard" className="flex-shrink-0">
                                                 <Logo fillColor="white" />
@@ -53,7 +53,7 @@ function DashboardLayout(props) {
                     }
 
                     <header className="py-10">
-                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8  flex justify-between">
+                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex gap-4 justify-between md:flex-row flex-col">
                             <div className="flex items-center gap-4">
                                 {
                                 props.hideNav &&
@@ -63,7 +63,7 @@ function DashboardLayout(props) {
                                 }
                                 <h1 className="text-3xl font-bold tracking-tight text-white">{props.Title}</h1>
                             </div>
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-4 flex-wrap justify-end">
                                 {props.cta2}
                                 {props.cta1}
                             </div>
