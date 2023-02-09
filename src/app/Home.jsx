@@ -15,14 +15,14 @@ function Home() {
                             </a>
                         </div>
                         <div className="flex items-center gap-x-5 md:gap-x-8">
-                            <div className="hidden md:block">
+                            <div className="">
                                 <a href="/login">Sign in</a>
                             </div>
                         </div>
                     </nav>
                 </div>
             </header>
-            <div className="pt-20 pb-16 text-center lg:pt-32">
+            <div className="pt-20 pb-16 px-8 text-center lg:pt-32">
                 <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
                     Build a{' '}
                     <span className="relative whitespace-nowrap text-blue-600">
