@@ -72,13 +72,13 @@ function SiteDisplay (props) {
                     <h2 className='text-3xl font-bold mb-4'>
                         Projects
                     </h2>
-                    <div className=' grid grid-cols-2 gap-2'>
+                    <div className=' grid grid-cols-1 md:grid-cols-2 gap-2'>
                     {
                         props.SiteProjects && props.SiteProjects.map((project, index) => {
                             return (
                                 <div key={index} className=" bg-slate-200 text-black p-4 rounded-md flex flex-col gap-2">
                                     {
-                                        project.image && <img className='object-fit h-48 w-full rounded-md p-1' style={{ backgroundColor: '#' + props.SiteColor }} src={"https://" +project.image} />
+                                        project.image && <img className='object-fit h-auto w-full rounded-md p-1 mb-2' style={{ backgroundColor: '#' + props.SiteColor }} src={"https://" +project.image} />
                                     }
                                     <h3 className=' text-base font-bold'>
                                         {project.name}
@@ -105,11 +105,11 @@ function SiteDisplay (props) {
                         <h2 className='text-3xl font-bold mb-4'>
                             Services
                         </h2>
-                        <ul className='grid grid-cols-2 gap-4'>
+                        <ul className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             {
                                 props.SiteServices && props.SiteServices.map((service, index) => {
                                     return (
-                                        <li key={index} className="p-4 bg-gray-200 rounded-md">
+                                        <li key={index} className="p-4 bg-slate-200 rounded-md">
                                             <h3 className='text-lg font-bold mb-1'>{service.name}</h3>
                                             <p>{service.description}</p>
                                         </li>
