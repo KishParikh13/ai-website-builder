@@ -67,8 +67,8 @@ function SiteBuilder() {
                     setSiteRecordID(siteFields.SiteRecordID)
                     setSiteImages(siteFields.SiteImages)
                     setSiteLogo(siteFields.SiteLogo)
-                    setSiteServices(JSON.parse(siteFields.SiteServices))
-                    setSiteProjects(JSON.parse(siteFields.SiteProjects))
+                    setSiteServices(siteFields.SiteServices ? JSON.parse(siteFields.SiteServices): null)
+                    setSiteProjects(siteFields.SiteProjects ? JSON.parse(siteFields.SiteProjects): null)
 
                     setLastUpdated(siteFields.Updated)
                 })
@@ -86,8 +86,8 @@ function SiteBuilder() {
             "SiteHeroSubheading": SiteHeroSubheading,
             "SiteImages": SiteImages,
             "SiteLogo": SiteLogo,
-            "SiteServices": JSON.stringify(SiteServices),
-            "SiteProjects": JSON.stringify(SiteProjects)
+            "SiteServices": SiteServices ? JSON.stringify(SiteServices): "null",
+            "SiteProjects": SiteProjects ? JSON.stringify(SiteProjects): "null"
         })
         .then (response => {
             loadSite()
@@ -107,7 +107,7 @@ function SiteBuilder() {
                             href= {`/view/${siteID}`}
                             color= "indigo"
                         >
-                            <span>View site</span>
+                            <span>View</span>
                         </Button>
                     }
                     cta2={
@@ -145,7 +145,7 @@ function SiteBuilder() {
                                             </svg>
                                         </div>
                                         :
-                                        <> Save changes <span aria-hidden="true">&uarr;</span> </>
+                                        <> Save <span aria-hidden="true">&uarr;</span> </>
                                     }
                                 </span>
                             </Button>
@@ -192,14 +192,14 @@ function SiteBuilder() {
                                                 SiteCTA={SiteCTA}
                                                 SiteCTALink={(SiteCTAType === "website" ? "https://" : "mailto:")  + SiteCTALink}
                                                 SiteCTAHeading={SiteCTAHeading}
-                                                SiteProjects={SiteProjects}
                                                 SiteColor={SiteColor}
                                                 SiteHeroHeading={SiteHeroHeading}
                                                 SiteHeroSubheading={SiteHeroSubheading}
-                                                SiteServices={SiteServices}
                                                 SiteRecordID={SiteRecordID}
                                                 SiteImages={SiteImages}
                                                 SiteLogo={SiteLogo}
+                                                SiteServices={SiteServices}
+                                                SiteProjects={SiteProjects}
                                             />
                                         </div>
                                     </div>
