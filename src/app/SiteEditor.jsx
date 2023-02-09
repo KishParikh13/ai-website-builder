@@ -8,11 +8,11 @@ import Accordion from '../components/Accordion';
 
 const tabs = [
     {
-        name: 'Profile',
+        name: 'Content',
         current: true,
     },
     {
-        name: 'Content',
+        name: 'Design',
         current: false,
     },
     {
@@ -51,7 +51,7 @@ function ProfileFields(props) {
 
 function SiteEditor(props) {
 
-    const [selectedTab, setSelectedTab] = useState('Profile')
+    const [selectedTab, setSelectedTab] = useState(tabs[0].name)
 
     const updateProjects = (index, whichvalue, newvalue) => {
         if (index !== -1) {
@@ -81,7 +81,7 @@ function SiteEditor(props) {
 
             <form className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                 {
-                    selectedTab === 'Profile' && <>
+                    selectedTab === tabs[0].name && <>
                         <TextArea
                             className="col-span-full"
                             label="Hero Heading"
@@ -96,7 +96,7 @@ function SiteEditor(props) {
                         />
                         <TextArea
                             className="col-span-full"
-                            rows="6"
+                            rows="4"
                             label="Hero Subheading"
                             id="site_hero_subheading"
                             name="site_hero_subheading"
@@ -107,32 +107,6 @@ function SiteEditor(props) {
                                 props.setSiteHeroSubheading(e.target.value)}
                             }
                         />
-                        {
-                            false && props.SiteServices && props.SiteServices.split('\n').filter(service => service.length > 0).map((service, index) => {
-                                return (
-                                    <TextField
-                                        key={index}
-                                        className="col-span-full"
-                                        type="text"
-                                        label={`Service ${index+1}`}
-                                        id={`site_service_${index+1}`}
-                                        name={`site_service_${index+1}`}
-                                        required
-                                        value={service}
-                                        onChange={e => {
-                                            props.setUnsavedChanges(true);
-                                            let services = props.SiteServices.split('\n');
-                                            services[index] = e.target.value;
-                                            props.setSiteServices(services.join('\n'));
-                                        }}
-                                    />
-                                )
-                            })
-                        }
-                    </>
-                }
-                {
-                    selectedTab === 'Content' && <>
                         <div className="col-span-full">
                             <label htmlFor="" className="block text-sm font-medium text-gray-700">
                                 Projects
@@ -278,10 +252,14 @@ function SiteEditor(props) {
                                 </div>
                             </div>
                         </div>
+                </>
+                }
+                {
+                    selectedTab === tabs[1].name && <> 
                     </>
                 }
                 {
-                    selectedTab === 'Settings' && <>
+                    selectedTab === tabs[2].name && <>
                         <TextField
                             className="col-span-full"
                             type="text"
