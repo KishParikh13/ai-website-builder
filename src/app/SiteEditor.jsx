@@ -295,6 +295,23 @@ function SiteEditor(props) {
                                 props.setSiteName(e.target.value)}
                             }
                         />
+                        <div >
+                        <TextFieldGroup
+                            className="col-span-full"
+                            type="text"
+                            label="Color of site"
+                            id="site_color"
+                            name="site_color"
+                            prefix={"#"}
+                            required
+                            // style={{ borderColor: "#" + props.SiteColor}}
+                            value={props.SiteColor}
+                            onChange={e => {
+                                props.setUnsavedChanges(true);
+                                props.setSiteColor(e.target.value)}
+                            }
+                        />
+                        </div>
                         <TextField
                             className="col-span-full"
                             type="text"

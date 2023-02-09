@@ -7,7 +7,7 @@ function SiteDisplay (props) {
 
     const SiteNav = () => {
         return (
-            <header className=" px-8 " style={{ backgroundColor: 'black' }}>
+            <header className=" px-8 " style={{ backgroundColor: '#' + props.SiteColor }}>
                 <nav className="mx-auto max-w-3xl " aria-label="Top">
                     <div className="flex w-full items-center justify-between py-3 lg:border-none">
                         <div className="flex items-center">
@@ -37,7 +37,7 @@ function SiteDisplay (props) {
                         {props.SiteHeroSubheading}
                     </h2>
                     <div className="space-x-4 mt-4">
-                        <a href={props.SiteCTALink} target="_blank" style={{ backgroundColor: '#' }} className="inline-block rounded-md border border-transparent py-2 px-4 text-base font-medium bg-black text-white hover:bg-gray-800">
+                        <a href={props.SiteCTALink} target="_blank"  style={{ backgroundColor: '#' + props.SiteColor }} className="inline-block rounded-md border border-transparent py-2 px-4 text-base font-medium bg-black text-white hover:bg-gray-800">
                             {props.SiteCTA}
                         </a>
                     </div>
@@ -142,7 +142,7 @@ function SiteDisplay (props) {
 
     const SiteFooter = () => {
         return (
-            <section id="footer" style={{ backgroundColor: 'black' }} className='px-8 py-8 text-white '>
+            <section id="footer"  style={{ backgroundColor: '#' + props.SiteColor }} className='px-8 py-8 text-white '>
                 <div className='mx-auto max-w-3xl '>
                     © {props.OwnerName} {new Date().getFullYear()}
                 </div>
