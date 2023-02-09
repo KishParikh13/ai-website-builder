@@ -152,7 +152,7 @@ export class Airtable {
     }
 
     // create user if they dont already exist
-    createUser(first, last, email, password, option) {
+    createUser(first, last, email, password, source) {
 
         return new Promise((resolve, reject) => {
             this.checkIfUserExists(email)
@@ -168,6 +168,7 @@ export class Airtable {
                                 Last: last,
                                 Email: email,
                                 Password: encrypted,
+                                Source: source
                             }
                         }
                         axios.post(`${this.url}/Users`, data, this.config)
