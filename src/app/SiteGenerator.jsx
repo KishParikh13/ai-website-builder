@@ -147,7 +147,7 @@ function GenerateSiteAndRedirect() {
 
     return (
         <>
-            <div className='bg-indigo-800 min-h-screen flex justify-center items-center'>
+            <div className='bg-indigo-800 min-h-screen flex justify-center items-center px-4'>
                 {
                     loadingState === 'loading' ?
                         <div className='bg-white text-slate-700 text-center p-8 flex rounded-lg gap-4'>
