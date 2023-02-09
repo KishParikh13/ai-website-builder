@@ -78,7 +78,7 @@ function SiteDisplay (props) {
                             return (
                                 <div key={index} className=" bg-slate-200 text-black p-4 rounded-md flex flex-col gap-2">
                                     {
-                                        project.image && <img className='object-fit h-48 w-full rounded-md' style={{ backgroundColor: '' + 'green'}} src={"https://" + project.image} />
+                                        project.image && <img className='object-fit h-48 w-full rounded-md p-1' style={{ backgroundColor: '#' + props.SiteColor }} src={"https://" +project.image} />
                                     }
                                     <h3 className=' text-base font-bold'>
                                         {project.name}
