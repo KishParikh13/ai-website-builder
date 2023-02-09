@@ -125,7 +125,7 @@ function SiteBuilder() {
                                 type="button"
                                 variant="solid"
                                 color= { saving ? "green" : "slate" }
-                                className={ unsavedChanges ? ' hidden ' : ' '}
+                                className={ unsavedChanges ? '  ' : ' hidden '}
                                 onClick={e => {
                                     setSaving(true)
                                     saveSiteChanges()
