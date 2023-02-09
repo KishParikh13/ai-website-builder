@@ -156,6 +156,7 @@ function SiteEditor(props) {
                                                         required
                                                         value={project.name}
                                                         onChange={e => {
+                                                            props.setUnsavedChanges(true);
                                                             updateProjects(index, "name", e.target.value);
                                                         }}
                                                     />
@@ -168,6 +169,7 @@ function SiteEditor(props) {
                                                         required
                                                         value={project.description}
                                                         onChange={e => {
+                                                            props.setUnsavedChanges(true);
                                                             updateProjects(index, "description", e.target.value);
                                                         }}
                                                     />
@@ -180,6 +182,7 @@ function SiteEditor(props) {
                                                         required
                                                         value={project.image}
                                                         onChange={e => {
+                                                            props.setUnsavedChanges(true);
                                                             updateProjects(index, "image", e.target.value);
                                                         }}
                                                     />
@@ -192,6 +195,7 @@ function SiteEditor(props) {
                                                         required
                                                         value={project.link}
                                                         onChange={e => {
+                                                            props.setUnsavedChanges(true);
                                                             updateProjects(index, "link", e.target.value);
                                                         }}
                                                     />
@@ -200,8 +204,9 @@ function SiteEditor(props) {
                                         />
                                     ))
                                 }
-                                <a href="#!" aria-current="true" className=" flex justify-between items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-b-lg border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer"
+                                <button type="button" className=" flex justify-between items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-b-lg border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer"
                                 onClick={e => {
+                                    props.setUnsavedChanges(true);
                                     props.setSiteProjects([...props.SiteProjects, {name: `Project ${props.SiteProjects.length}`, description: "", link: "", image: "", color: ""}])
                                 }} 
                                 >
@@ -209,7 +214,7 @@ function SiteEditor(props) {
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                 </svg>
-                                </a>
+                                </button>
                                 </div>
                             </div>
                         </div>
@@ -237,6 +242,7 @@ function SiteEditor(props) {
                                                         required
                                                         value={service.name}
                                                         onChange={e => {
+                                                            props.setUnsavedChanges(true);
                                                             updateServices(index, "name", e.target.value);
                                                         }}
                                                     />
@@ -249,6 +255,7 @@ function SiteEditor(props) {
                                                         required
                                                         value={service.description}
                                                         onChange={e => {
+                                                            props.setUnsavedChanges(true);
                                                             updateServices(index, "description", e.target.value);
                                                         }}
                                                     />
@@ -257,8 +264,9 @@ function SiteEditor(props) {
                                         />
                                     ))
                                 }
-                                <a href="#!" aria-current="true" className=" flex justify-between items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-b-lg border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer"
+                                <button type="button" className=" flex justify-between items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-b-lg border-gray-200 w-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-200 cursor-pointer"
                                     onClick={e => {
+                                        props.setUnsavedChanges(true);
                                         props.setSiteServices([...props.SiteServices, {name: `Service ${props.SiteServices.length}`, description: ""}])
                                     }} 
                                 >
@@ -266,7 +274,7 @@ function SiteEditor(props) {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                     </svg>
-                                </a>
+                                </button>
                                 </div>
                             </div>
                         </div>

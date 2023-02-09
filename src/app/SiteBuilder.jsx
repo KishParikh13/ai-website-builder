@@ -67,8 +67,8 @@ function SiteBuilder() {
                     setSiteRecordID(siteFields.SiteRecordID)
                     setSiteImages(siteFields.SiteImages)
                     setSiteLogo(siteFields.SiteLogo)
-                    setSiteServices(siteFields.SiteServices ? JSON.parse(siteFields.SiteServices): null)
-                    setSiteProjects(siteFields.SiteProjects ? JSON.parse(siteFields.SiteProjects): null)
+                    setSiteServices(siteFields.SiteServices ? JSON.parse(siteFields.SiteServices): [])
+                    setSiteProjects(siteFields.SiteProjects ? JSON.parse(siteFields.SiteProjects): [])
 
                     setLastUpdated(siteFields.Updated)
                 })
@@ -86,8 +86,8 @@ function SiteBuilder() {
             "SiteHeroSubheading": SiteHeroSubheading,
             "SiteImages": SiteImages,
             "SiteLogo": SiteLogo,
-            "SiteServices": SiteServices ? JSON.stringify(SiteServices): "null",
-            "SiteProjects": SiteProjects ? JSON.stringify(SiteProjects): "null"
+            "SiteServices": SiteServices ? JSON.stringify(SiteServices): [],
+            "SiteProjects": SiteProjects ? JSON.stringify(SiteProjects): []
         })
         .then (response => {
             loadSite()
