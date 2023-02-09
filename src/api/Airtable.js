@@ -72,8 +72,12 @@ export class Airtable {
                     "SiteColor": generatedContent.SiteColor,
                     "SiteServices": generatedContent.SiteServices,
                     "SiteCTA": generatedContent.SiteCTA,
+                    "SiteCTAType": generatedContent.SiteCTAType,
+                    "SiteCTALink": generatedContent.SiteCTALink,
                     "SiteCTAHeading": generatedContent.SiteCTAHeading,
                     "SiteImages": generatedContent.SiteImages,
+                    "SiteServices": generatedContent.SiteServices,
+                    "SiteProjects": generatedContent.SiteProjects,
                 }
             }
             axios.post(`${this.url}/Portfolios`, data, this.config)

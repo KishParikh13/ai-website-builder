@@ -11,16 +11,15 @@ function SiteView (props) {
     const [site, setSite] = useState({});
 
     const loadSite = () => {
-        base.getSiteByID(siteID)
-            .then(response => {
-                setSite(response.fields)
-            })
     }
 
     // load site data from url
     useEffect(() => {
         if (siteID !== undefined) {
-            loadSite()
+            base.getSiteByID(siteID)
+            .then(response => {
+                setSite(response.fields)
+            })
         } else {
             window.location.href = '/dashboard'
         }

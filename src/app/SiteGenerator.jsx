@@ -28,9 +28,7 @@ function GenerateSiteAndRedirect() {
     const GenerateSiteAndRedirect = (generatedContent) => {
         airtableBase.createSite(user.id, selfDescription, siteGoal, generatedContent)
             .then(response => {
-                console.log(response)
                 if (response.fields) {
-                    console.log(generatedContent)
                     window.location.href = `/sites/${response.id}`
                 } else {
                     alert(response)
@@ -45,6 +43,15 @@ function GenerateSiteAndRedirect() {
         const AIGeneratedContent = {}
         const userName = user.fields["Full name"]
 
+        AIGeneratedContent["SiteImages"] = "[]" //JSON.stringify(images)
+        AIGeneratedContent["SiteLogo"] = "" //JSON.parse(response).data[0].url
+        AIGeneratedContent["SiteCTAHeading"] = "" //JSON.parse(response).choices[0].text
+        AIGeneratedContent["SiteCTA"] = "Contact" //JSON.parse(response).choices[0].text
+        AIGeneratedContent["SiteCTALink"] = user.fields.Email
+        AIGeneratedContent["SiteCTAType"] = "email"
+
+        //generate content 1 by 1
+        
         // site name
         getOpenAICompletion({
             "model": "text-davinci-003",
@@ -52,43 +59,109 @@ function GenerateSiteAndRedirect() {
             "temperature": 0.4,
             "max_tokens": 100
         }).then(response => {
+            console.log("done with site name")
             AIGeneratedContent["Name"] = JSON.parse(response).choices[0].text
-        })
 
-        // hero heading
-        getOpenAICompletion({
-            "model": "text-davinci-003",
-            "prompt": `Write a catchy professional one line heading for a personal website. In first person, describing a ${selfDescription}, but using their first name only.`,
-            "temperature": 0.4,
-            "max_tokens": 100
-        }).then(response => {
-            AIGeneratedContent["SiteHeroHeading"] = JSON.parse(response).choices[0].text
-        })
+            // hero heading
+            getOpenAICompletion({
+                "model": "text-davinci-003",
+                "prompt": `Write a catchy professional one line heading for ${userName}'s personal website. In first person, describing a ${selfDescription}, but using their first name only.
+                e.g. John is a circus clown who entertains audiences with his humorous performances.,
+                Crafting Creative Experiences Through Design and Development.,
+                Chris: Exploring the Universe Through Music.
+                `,
+                "temperature": 0.4,
+                "max_tokens": 100
+            }).then(response => {
+                console.log("done with hero heading")
+                AIGeneratedContent["SiteHeroHeading"] = JSON.parse(response).choices[0].text
 
-        // hero subheading
-        getOpenAICompletion({
-            "model": "text-davinci-003",
-            "prompt": `Write a 2-3 sentence subheading for a personal website. In first person, describing ${userName}, a ${selfDescription}, but using their first name only. The subheading will be below this heading: "${AIGeneratedContent["SiteHeroHeading"]}"
-            e.g. I am a trans-disciplinary approach to design, I am able to leave behind the confines of a conventional method by combining UX fundamentals with years of experience in Product Marketing, Digital Analysis, Market Research, and Brand Management",
-            John is a freelance designer and for the last 8 years I have been helping startups deliver better experiences across Android, iOS and Web.,
-            Hello there! 👋 I'm Daniel, a senior product designer based in Toronto currently working with RBC.,
-            I help businesses big and small to turn their ideas into great products their customers love.
-            `,
-            "temperature": 0.8,
-            "max_tokens": 100
-        }).then(response => {
-            AIGeneratedContent["SiteHeroSubheading"] = JSON.parse(response).choices[0].text
+                // subheading
+                getOpenAICompletion({
+                    "model": "text-davinci-003",
+                    "prompt": `Write a 2-3 sentence subheading for a personal website. In first person, describing ${userName}, a ${selfDescription}, but using their first name only. The subheading will be below this heading: "${AIGeneratedContent["SiteHeroHeading"]}"
+                    e.g. I am a trans-disciplinary approach to design, I am able to leave behind the confines of a conventional method by combining UX fundamentals with years of experience in Product Marketing and Branding.,
+                    Hello there! 👋 I'm Daniel, a senior product designer based in Toronto currently working with RBC.,
+                    I help businesses big and small to turn their ideas into great products their customers love.
+                    `,
+                    "temperature": 0.8,
+                    "max_tokens": 120
+                }).then(response => {
+                    console.log("done with subheading")
+                    AIGeneratedContent["SiteHeroSubheading"] = JSON.parse(response).choices[0].text
+                    
+                    // services
+                    getOpenAICompletion({
+                        "model": "text-davinci-003",
+                        "prompt": `2 services with a name and description that describe ${userName},
+                            a ${selfDescription} who offers: "${siteGoal}.
+                            Format response as a an array of JSON objects with a name and description, e.g.
+                            [{"name": "Service 1", "description": "Service 1 description"}, {"name": "Service 2", "description": "Service 2 description"}]"
+                        `,
+                        "temperature": 0.5,
+                        "max_tokens": 200
+                    }).then(response => {
+                        console.log("done with services")
+                        let services = JSON.parse(JSON.parse(response).choices[0].text)
+                        AIGeneratedContent["SiteServices"] = JSON.stringify(services)
+
+                        // projects
+                        getOpenAICompletion({
+                            "model": "text-davinci-003",
+                            "prompt": `2 projects with a name, description, and link that belong to
+                                a ${selfDescription} who offers: "${siteGoal}.
+                                Format response as a an array of JSON objects with a catchy name, technical description, and link e.g.
+                                [{"name": "Project 1", "description": "Project 1 description", "link": "https://project1.com"}, {"name": "Project 2", "description": "Project 2 description", "link": "https://project2.com"}]"
+                            `,
+                            "temperature": 0.5,
+                            "max_tokens": 200
+                        }).then(response => {
+                            let projects = JSON.parse(JSON.parse(response).choices[0].text)
+                            projects.forEach(project => {
+                                project["image"] = `picsum.photos/seed/${project.name}/450/300`
+                                project["link"] = project["link"].replace("https://", "")
+                            })
+                            console.log("done with projects")
+                            AIGeneratedContent["SiteProjects"] = JSON.stringify(projects)
+
+                            // site color
+                            getOpenAICompletion({
+                                "model": "text-davinci-003",
+                                "prompt": `The CSS hex code for a color that represents ${selfDescription} and contrasts with white. background-color: #`,
+                                "temperature": 0,
+                                "max_tokens": 3
+                            }).then(response => {
+                                console.log("done with site color")
+                                AIGeneratedContent["SiteColor"] = JSON.parse(response).choices[0].text
+
+
+                                // generate site and redirect
+                                GenerateSiteAndRedirect(AIGeneratedContent)
+                            })
+                        })
+                        .catch(error => {
+                            console.log("projects failed")
+                            console.log((error))
+                        })
+            
+                    })
+                    .catch(error => {
+                        console.log("services failed")
+                        console.log((error))
+                    })
+                })
+            })
         })
 
         // button text
         // getOpenAICompletion({
         //     "model": "text-davinci-003",
-        //     "prompt": `Turn the following text into a 2-3 word call to action for a website button (e.g. Contact Me, Learn More, Get in Touch): ${"buy stuff"}`,
+        //     "prompt": `Turn the following text into a 2-3 word call to action button (e.g. Contact Me, Learn More, Get in Touch) for a website about ${selfDescription}: ${siteGoal}`,
         //     "temperature": 0.5,
         //     "max_tokens": 3
         // }).then(response => {
-            AIGeneratedContent["SiteCTA"] = "Contact me" // JSON.parse(response).choices[0].text
         // })
+
 
         // cta section header
         // getOpenAICompletion({
@@ -97,49 +170,31 @@ function GenerateSiteAndRedirect() {
         //     "temperature": 0.5,
         //     "max_tokens": 60
         // }).then(response => {
-            AIGeneratedContent["SiteCTAHeading"] = "" // JSON.parse(response).choices[0].text
         // })
 
-        // services
-        getOpenAICompletion({
-            "model": "text-davinci-003",
-            "prompt": `4 services with descriptions that describes a ${selfDescription}, offers: "${siteGoal}"`,
-            "temperature": 0,
-            "max_tokens": 200
-        }).then(response => {
-            AIGeneratedContent["SiteServices"] = JSON.parse(response).choices[0].text
-        })
 
         // logo image
-        getOpenAIImage({
-            "prompt": `A simple symbolic representation without words of the following person in a cartoon style: "mickey mouse"`,
-            "n": 1,
-            "size": "256x256"
-        }).then(response => {
-            AIGeneratedContent["SiteLogo"] = JSON.parse(response).data[0].url
-        })
-
-        // site color
-        getOpenAICompletion({
-            "model": "text-davinci-003",
-            "prompt": `The CSS hex code for a color that represents "professional". background-color: #`,
-            "temperature": 0,
-            "max_tokens": 3
-        }).then(response => {
-            AIGeneratedContent["SiteColor"] = JSON.parse(response).choices[0].text
-        })
+        // getOpenAIImage({
+        //     "prompt": `A simple symbolic representation without words of the following person in a cartoon style: "mickey mouse"`,
+        //     "n": 1,
+        //     "size": "256x256"
+        // }).then(response => {
+        // })
 
         // image gallery
-        getOpenAIImages({
-            "prompt": `A collection of images that represent the work the following person does: ${"clown with mask and red nose"}"`,
-            "n": 4,
-            "size": "256x256"
-        }).then(response => {
-            let images = JSON.parse(response).data.map(image => image.url)
-            AIGeneratedContent["SiteImages"] = JSON.stringify(images)
+        // getOpenAIImages({
+        //     "prompt": `A collection of images that represent the work the following person does: ${"clown with mask and red nose"}"`,
+        //     "n": 4,
+        //     "size": "256x256"
+        // }).then(response => {
+        //     let images = JSON.parse(response).data.map(image => image.url)
+        // })
 
-            GenerateSiteAndRedirect(AIGeneratedContent)
-        })
+        // after 5 seconds, redirect to the site
+        // setTimeout(() => {
+        //     GenerateSiteAndRedirect(AIGeneratedContent)
+        // }
+        // , 20000)
 
 
 
