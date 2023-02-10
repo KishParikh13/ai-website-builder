@@ -31,7 +31,7 @@ function SiteView (props) {
         <div>
             <div className="">
                 <SiteDisplay
-                    OwnerName={site.OwnerName}
+                    PersonName={site.PersonName}
                     SiteName={site.SiteName}
                     SiteCTA={site.SiteCTA}
                     SiteCTALink={site.SiteCTALink}
