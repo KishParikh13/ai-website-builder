@@ -52,6 +52,7 @@ function ProfileFields(props) {
 function SiteEditor(props) {
 
     const [selectedTab, setSelectedTab] = useState(tabs[0].name)
+    
 
     const updateProjects = (index, whichvalue, newvalue) => {
         if (index !== -1) {
@@ -84,7 +85,7 @@ function SiteEditor(props) {
                     selectedTab === tabs[0].name && <>
                         <TextArea
                             className="col-span-full"
-                            label="Hero Heading"
+                            label="Heading"
                             id="site_hero_heading"
                             name="site_hero_heading"
                             required
@@ -97,7 +98,7 @@ function SiteEditor(props) {
                         <TextArea
                             className="col-span-full"
                             rows="4"
-                            label="Hero Subheading"
+                            label="Subheading"
                             id="site_hero_subheading"
                             name="site_hero_subheading"
                             required
@@ -275,6 +276,19 @@ function SiteEditor(props) {
                 }
                 {
                     selectedTab === tabs[2].name && <>
+                        <TextField // for the person the site's about
+                            className="col-span-full"
+                            type="text"
+                            label="Name of person site is about"
+                            id="PersonName"
+                            name="site_person_name"
+                            required
+                            value={props.PersonName}
+                            onChange={e => {
+                                props.setUnsavedChanges(true);
+                                props.setPersonName(e.target.value)}
+                            }
+                        />
                         <TextField
                             className="col-span-full"
                             type="text"
