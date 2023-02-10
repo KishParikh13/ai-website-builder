@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { TextArea, TextField, TextFieldGroup, RadioField, RadioGroup, Label } from '../components/Fields';
+import { TextArea, TextField, TextFieldGroup, RadioField, RadioGroup, Label, FormSeperator } from '../components/Fields';
 import { Button } from '../components/Button';
 import Accordion from '../components/Accordion';
 
@@ -108,6 +108,9 @@ function SiteEditor(props) {
                                 props.setSiteHeroSubheading(e.target.value)}
                             }
                         />
+                        
+                        <FormSeperator label={"Collections"}  className='' />
+
                         <div className="col-span-full">
                             <label htmlFor="" className="block text-sm font-medium text-gray-700">
                                 Projects
@@ -292,7 +295,7 @@ function SiteEditor(props) {
                         <TextField
                             className="col-span-full"
                             type="text"
-                            label="Name of site"
+                            label="Site name"
                             id="site_name"
                             name="site_name"
                             required
@@ -302,6 +305,7 @@ function SiteEditor(props) {
                                 props.setSiteName(e.target.value)}
                             }
                         />
+                        <FormSeperator label={"Call to action"} />
                         <TextField
                             className="col-span-full"
                             type="text"
@@ -381,6 +385,7 @@ function SiteEditor(props) {
                                     }
                                 />
                             }
+                            <FormSeperator label={"Actions"} className={"mt-6"} />
                             <Button
                                 className=" w-full gap-2 mt-8 "
                                 type="button"

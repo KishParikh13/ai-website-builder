@@ -44,6 +44,16 @@ export function TextArea({
   )
 }
 
+export function FormSeperator ({ label, className = '', ...props }) {
+  return (
+    <div className={ ' inline-flex gap-2 items-center col-span-full w-full text-slate-500 ' + className}>
+      <span className=' flex-grow h-[3px] bg-slate-100 rounded-full '></span>
+      <span className='text-xs'>{label}</span>
+      <span className=' flex-grow h-[3px] bg-slate-100 rounded-full '></span>
+    </div>
+  )
+  }
+
 export function TextFieldGroup ({ id, label, type="text", className = '', prefix, ...props }) {
   return (
     <div className={className}>
