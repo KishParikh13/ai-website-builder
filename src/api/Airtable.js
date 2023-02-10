@@ -25,16 +25,19 @@ export class Airtable {
     }
 
     // update site by id
-    updateSiteByID = (siteID, fields) => {
+    updateSiteByID = (siteID, generatedContent) => {
         return new Promise((resolve, reject) => {
             let data = {
-                fields: fields
+                "fields": generatedContent
             }
+            console.log(data);
             axios.patch(`${this.url}/Portfolios/${siteID}`, data, this.config)
                 .then(x => {
+                    console.log(x.data)
                     resolve(x.data);
                 })
                 .catch(x => {
+                    console.log(x)
                     alert(x);
                     reject(x);
                 })
