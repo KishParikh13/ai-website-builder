@@ -6,7 +6,7 @@ import Logo from '../components/Logo';
 function Home() {
     return (
         <>
-            <header className="px-10 py-4">
+            <header className="max-w-8xl px-8 md:px-12 py-4">
                 <div>
                     <nav className="relative z-50 flex justify-between">
                         <div className="flex items-center md:gap-x-6">
@@ -22,8 +22,8 @@ function Home() {
                     </nav>
                 </div>
             </header>
-            <div className="pt-20 pb-16 px-8 text-center lg:pt-32">
-                <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
+            <div className="max-w-8xl px-8 md:px-12 pt-20 pb-16  flex flex-col items-start text-start lg:pt-32">
+                <h1 className="max-w-4xl font-display text-6xl font-medium tracking-tight text-slate-900 sm:text-7xl">
                     Build a{' '}
                     <span className="relative whitespace-nowrap text-blue-600">
                         <svg
@@ -38,8 +38,8 @@ function Home() {
                     </span>{' '}
                     in seconds with AI.
                 </h1>
-                <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-                    Building a portfolio is grueling. We remove the manual work, and help you present yourself in the best light.
+                <p className="mt-6 max-w-4xl text-3xl tracking-tight text-slate-700">
+                    Building a portfolio is grueling. We've removed the manual work with AI, now you can build one in seconds.
                 </p>
                 <div className="mt-10 flex justify-center gap-x-6">
                     <Button color='blue' href="/register">Get started</Button>
