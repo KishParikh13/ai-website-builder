@@ -4,7 +4,7 @@ export default function Logo(props) {
 
     <div className="flex items-center gap-2">
     <svg className="h-8 w-8" viewBox="0 0 248 248" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0_1_15)">
+      <g clipPath="url(#clip0_1_15)">
       <path d="M124 62C124 96.2417 96.2417 124 62 124C27.7583 124 0 96.2417 0 62C0 27.7583 27.7583 0 62 0C96.2417 0 124 27.7583 124 62Z" fill="#E4E4E4"/>
       <path d="M248 62C248 96.2417 220.242 124 186 124C151.758 124 124 96.2417 124 62C124 27.7583 151.758 0 186 0C220.242 0 248 27.7583 248 62Z" fill="#2A5BC2"/>
       <path d="M248 186C248 220.242 220.242 248 186 248C151.758 248 124 220.242 124 186C124 151.758 151.758 124 186 124C220.242 124 248 151.758 248 186Z" fill="#E4E4E4"/>

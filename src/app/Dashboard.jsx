@@ -28,6 +28,96 @@ function Dashboard() {
 
     }, [])
 
+    function SiteCreateButton (props) {
+        return (
+            <a href="/new"  className={"bg-indigo-600 text-white hover:bg-indigo-700 transition duration-100 overflow-hidden border border-slate-200 rounded-lg " + props.className}>
+                <div className="p-4 ">
+                    <div className="flex gap-4 items-center">
+                        <div className="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                            <svg className="h-12 w-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                        </div>
+
+                        <div>
+                            <h3 className="text-lg leading-6 font-medium">
+                                Create new portfolio
+                            </h3>
+                            <p className="mt-1 max-w-2xl text-sm text-purple-300">
+                                Start from scratch
+                            </p>
+                        </div>
+                        <div className="ml-auto flex-shrink-0 rounded-full p-1 text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                            <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        )
+    }
+
+    function SitePreviewCard (props) {
+        let site = props.site
+        
+        return(
+        <div className="bg-white  transition duration-100 overflow-hidden border border-slate-200 rounded-lg flex flex-col">
+            <div className=" border-b border-gray-300  bg-slate-100 opacity-70 hover:opacity-100 transition  duration-100 flex-grow">
+                <div className="flex flex-col ">
+                    <div className="py-2"  style={{ backgroundColor: "#" +( site.fields.SiteColor) }}></div>
+                    <div>
+                        <div className="p-6" > 
+                            <p className="text- font-extrabold mb-2">{site.fields.SiteHeroHeading}</p>
+                            <p className="text-sm text-black/70">{site.fields.SiteHeroSubheading}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div className="p-6">
+            <div className="flex flex-col gap-2 items-between justify-center">
+                {/* <target="_blank" className=" rounded-full text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                </a> */}
+
+                <div>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
+                        {site.fields.Name}
+                    </h3>
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                        Created on {' ' + new Date(site.fields.Created).toLocaleDateString()}
+                    </p>
+                </div>
+                <div className="mt-auto ">
+                </div>  
+            </div>  
+        </div>  
+            <div className="px-6  pb-6">
+                <div className="flex gap-2">
+                    <a href={`/sites/${site.id}`}  className="inline-flex  bg-slate-200 hover:bg-slate-300 text-gray-600 rounded-md py-3 px-8">
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008z" />
+                        </svg> */}
+                        <span>Edit</span>
+                    </a>
+                    <a href={`/view/${site.id}`} target="_blank" className="inline-flex gap-1 flex-grow text-white rounded-md" style={{ backgroundColor: "#" +( site.fields.SiteColor) }} >
+                        <div className="  flex justify-center w-full p-3  transition duration-100 bg-black-0 hover:bg-black/10">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                            <span className="ml-2 font-medium">Open</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        )
+    }
+
     return (
         <DashboardLayout Title="My sites" Content={
             <div className="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
@@ -35,61 +125,12 @@ function Dashboard() {
                     {
                         sites.map((site, index) => {
                             return (
-                                <a key={index} href={`/sites/${site.id}`} className="bg-white hover:bg-slate-100 transition duration-100 overflow-hidden border border-slate-200 rounded-lg">
-                                    <div className="p-4 ">
-                                        <div className="flex gap-4 items-center">
-                                            <div className="flex-shrink-0  rounded-md p-3" style={{backgroundColor: "#" + site.fields.SiteColor }} >
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-12 h-12">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                                                </svg>
-                                            </div>
-
-                                            <div>
-                                                <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                                    {site.fields.Name}
-                                                </h3>
-                                                <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                                                    Created on {' ' + new Date(site.fields.Created).toLocaleDateString()}
-                                                </p>
-                                            </div>
-                                            <div className="ml-auto flex-shrink-0 rounded-full p-1 text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                                                <span className="sr-only">View notifications</span>
-                                                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
+                                <SitePreviewCard site={site} key={index} />
                             )
                         })
                     }
-
-                    <a href="/new" className="bg-indigo-600 text-white hover:bg-indigo-700 transition duration-100 overflow-hidden border border-slate-200 rounded-lg">
-                        <div className="p-4 ">
-                            <div className="flex gap-4 items-center">
-                                <div className="flex-shrink-0 bg-indigo-500 rounded-md p-3">
-                                    <svg className="h-12 w-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                    </svg>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-lg leading-6 font-medium">
-                                        Create new portfolio
-                                    </h3>
-                                    <p className="mt-1 max-w-2xl text-sm text-purple-300">
-                                        Start from scratch
-                                    </p>
-                                </div>
-                                <div className="ml-auto flex-shrink-0 rounded-full p-1 text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+                    <SiteCreateButton className={"mb-auto"} />
+                    
                 </div>
             </div>
         } />
