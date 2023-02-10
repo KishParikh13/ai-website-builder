@@ -12,7 +12,7 @@ function SiteDisplay (props) {
                     <div className="flex w-full items-center justify-between py-3 lg:border-none">
                         <div className="flex items-center">
                             <a href="#">
-                                <span className="text-white font-bold text-lg">{props.OwnerName}</span>
+                                <span className="text-white font-bold text-lg">{props.PersonName}</span>
                             </a>
                         </div>
                         <div className="ml-10 space-x-4">
@@ -144,7 +144,7 @@ function SiteDisplay (props) {
         return (
             <section id="footer"  style={{ backgroundColor: '#' + props.SiteColor }} className='px-8 py-8 text-white '>
                 <div className='mx-auto max-w-3xl '>
-                    © {props.OwnerName} {new Date().getFullYear()}
+                    © {props.PersonName} {new Date().getFullYear()}
                 </div>
             </section>
         )
