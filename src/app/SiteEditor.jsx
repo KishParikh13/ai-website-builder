@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import { TextArea, TextField, TextFieldGroup, RadioField, RadioGroup, Label, FormSeperator } from '../components/Fields';
 import { Button } from '../components/Button';
 import Accordion from '../components/Accordion';
+import SiteRegenerator from './SiteRegenerator';
+import TabsMenu from '../components/TabsMenu';
 
 const tabs = [
     {
@@ -21,28 +23,6 @@ const tabs = [
     }
 ]
 
-function TabsMenu(props) {
-    return (
-        <div className="flex rounded-md shadow-sm" role="group">
-            <button type="button" onClick={e => props.setSelectedTab(tabs[0].name)} className={(props.selectedTab === tabs[0].name ? "bg-blue-800 text-white" : "bg-white text-black") + " flex-grow px-4 py-2 text-sm font-medium border border-gray-200 rounded-l-lg"}>
-                {tabs[0].name}
-            </button>
-            {
-                tabs.slice(1, tabs.length-1).map((tab, index) => {
-                    return (
-                        <button key={index} type="button" onClick={e => props.setSelectedTab(tab.name)} className={(props.selectedTab === tab.name ? "bg-blue-800 text-white" : "bg-white text-black") + " flex-grow px-4 py-2 text-sm font-medium border-t border-b border-gray-200"}>
-                            {tab.name}
-                        </button>
-                    )
-                })
-            }
-            <button type="button" onClick={e => props.setSelectedTab(tabs[2].name)} className={(props.selectedTab === tabs[2].name ? "bg-blue-800 text-white" : "bg-white text-black") + " flex-grow px-4 py-2 text-sm font-medium border border-gray-200 rounded-r-md"}>
-                {tabs[tabs.length-1].name}
-            </button>
-        </div>
-    )
-}
-
 function ProfileFields(props) {
     return (
         <></>
@@ -52,7 +32,7 @@ function ProfileFields(props) {
 function SiteEditor(props) {
 
     const [selectedTab, setSelectedTab] = useState(tabs[0].name)
-    
+    const [remixSite, setRemixSite] = useState(false)
 
     const updateProjects = (index, whichvalue, newvalue) => {
         if (index !== -1) {
@@ -77,7 +57,21 @@ function SiteEditor(props) {
     return (
         <div className='flex flex-col gap-4'>
 
-            <TabsMenu selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+            <TabsMenu selectedTab={selectedTab} setSelectedTab={setSelectedTab} tabs={[
+                {
+                    "name": 'Content',
+                    "current": true
+                },
+                {
+                    "name": 'Design',
+                    "current": false
+                },
+                {
+                    "name": 'Settings',
+                    "current": false,
+                }
+            ]} />
+            
             <h2 className='font-bold text-lg'>{selectedTab}</h2>
 
             <form className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
@@ -389,6 +383,22 @@ function SiteEditor(props) {
                             <Button
                                 className=" w-full gap-2 mt-8 "
                                 type="button"
+                                variant='solid'
+                                color="indigo"
+                                onClick={e => {
+                                    setRemixSite(true)
+                                }}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
+                                </svg>
+
+                                Remix with AI
+                                
+                            </Button>
+                            <Button
+                                className=" w-full gap-2 mt-8 "
+                                type="button"
                                 variant='outline'
                                 color="red"
                                 onClick={e => {
@@ -409,6 +419,8 @@ function SiteEditor(props) {
                     </>
                 }
             </form>
+
+            { remixSite && <SiteRegenerator siteID={props.siteID}  show={ setRemixSite } /> }
         </div>
     )
 }

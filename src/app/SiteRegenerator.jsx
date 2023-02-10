@@ -4,8 +4,9 @@ import { SelectField, TextArea, TextField } from '../components/Fields'
 import Logo from '../components/Logo'
 import { Airtable } from '../api/Airtable'
 import { getOpenAICompletion, getOpenAIImage, getOpenAIImages } from '../api/OpenAI'
+import TabsMenu from '../components/TabsMenu'
 
-function GenerateSiteAndRedirect() {
+function SiteRegenerator (props) {
 
     const airtableBase = new Airtable()
 
@@ -25,11 +26,11 @@ function GenerateSiteAndRedirect() {
         }
     }, [])
 
-    const GenerateSiteAndRedirect = (generatedContent) => {
-        airtableBase.createSite(user.fields["Full name"], user.id, selfDescription, siteGoal, generatedContent)
+    const updateSiteAndReload = (generatedContent) => {
+        airtableBase.updateSiteByID(props.siteID, generatedContent)
             .then(response => {
                 if (response.fields) {
-                    window.location.href = `/sites/${response.id}`
+                    // window.location.href = `/sites/${response.id}`
                 } else {
                     alert(response)
                 }
@@ -37,7 +38,7 @@ function GenerateSiteAndRedirect() {
     }
 
 
-    const GenerateAIContentThenBuildSite = () => {
+    const generateAIContentThenBuildSite = () => {
 
         setLoadingState('loading')
         const AIGeneratedContent = {}
@@ -93,7 +94,7 @@ function GenerateSiteAndRedirect() {
                 }).then(response => {
                     console.log("done with subheading")
                     AIGeneratedContent["SiteHeroSubheading"] = JSON.parse(response).choices[0].text
-                    
+
                     // services
                     getOpenAICompletion({
                         "model": "text-davinci-003",
@@ -140,19 +141,19 @@ function GenerateSiteAndRedirect() {
 
 
                                 // generate site and redirect
-                                GenerateSiteAndRedirect(AIGeneratedContent)
+                                updateSiteAndReload(AIGeneratedContent)
                             })
                         })
+                            .catch(error => {
+                                console.log("projects failed")
+                                console.log((error))
+                            })
+
+                    })
                         .catch(error => {
-                            console.log("projects failed")
+                            console.log("services failed")
                             console.log((error))
                         })
-            
-                    })
-                    .catch(error => {
-                        console.log("services failed")
-                        console.log((error))
-                    })
                 })
             })
         })
@@ -196,7 +197,7 @@ function GenerateSiteAndRedirect() {
 
         // after 5 seconds, redirect to the site
         // setTimeout(() => {
-        //     GenerateSiteAndRedirect(AIGeneratedContent)
+        //     SiteRegenerator(AIGeneratedContent)
         // }
         // , 20000)
 
@@ -204,63 +205,95 @@ function GenerateSiteAndRedirect() {
 
     }
 
+
+    const [selectedTab, setSelectedTab] = useState('Remix a field')
+
+    const RemixForm = () => {
+        return (
+            <form className="mt-8 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                <TextArea
+                    className="col-span-full"
+                    label="Describe yourself and your skillset"
+                    id="self_description"
+                    name="self_description"
+                    required
+                    value={selfDescription}
+                    onChange={e => setSelfDescription(e.target.value)}
+                />
+                <TextArea
+                    className="col-span-full"
+                    label="What do you want people on your site to do?"
+                    id="site_goal"
+                    name="site_goal"
+                    required
+                    value={siteGoal}
+                    onChange={e => setSiteGoal(e.target.value)}
+                />
+                <div className="col-span-full">
+                    <Button
+                        type="button"
+                        variant="solid"
+                        color="indigo"
+                        className="w-full"
+                        onClick={generateAIContentThenBuildSite}
+                    >
+                        <span>
+                            Remix site <span aria-hidden="true">&rarr;</span>
+                        </span>
+                    </Button>
+                </div>
+            </form>
+        )
+    }
+
     return (
         <>
-            <div className='bg-indigo-800 min-h-screen flex justify-center items-center px-4'>
+            <div className='fixed top-0 right-0 left-0 z-10 bg-black/90 min-h-screen flex justify-center items-center px-4'>
                 {
                     loadingState === 'loading' ?
-                        <div className='bg-white text-slate-700 text-center p-8 flex rounded-lg gap-4'>
-                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-700"></div>
-                            <p className=' text-lg font-bold '>Generating your portfolio...</p>
-                        </div>
-                        :
-                        <div className='bg-white text-black p-8 rounded-lg'>
-                            <a href="/dashboard" className='  '>
-                                <Logo/>
-                            </a>
-                            <div className=' mt-4 flex items-start'>
-                                <div className="">
-                                    <h2 className="text-xl font-semibold text-gray-900">
-                                        Build your portfolio in minutes with AI
-                                    </h2>
-                                    <p className="mt-1 text-sm text-gray-700">
-                                        Answer a few questions and we'll generate your site for you.
-                                    </p>
+                        <>
+                            <div className='border border-indigo-700 bg-white text-slate-700 text-center p-8 flex rounded-lg gap-4'>
+                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-700">
+
                                 </div>
+                                <p className=' text-lg font-bold '>Remixing your portfolio...</p>
                             </div>
-                            <form className="mt-8 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
-                                <TextArea
-                                    className="col-span-full"
-                                    label="Describe yourself and your skillset"
-                                    id="self_description"
-                                    name="self_description"
-                                    required
-                                    value={selfDescription}
-                                    onChange={e => setSelfDescription(e.target.value)}
-                                />
-                                <TextArea
-                                    className="col-span-full"
-                                    label="What do you want people on your site to do?"
-                                    id="site_goal"
-                                    name="site_goal"
-                                    required
-                                    value={siteGoal}
-                                    onChange={e => setSiteGoal(e.target.value)}
-                                />
-                                <div className="col-span-full">
-                                    <Button
-                                        type="button"
-                                        variant="solid"
-                                        color="slate"
-                                        className="w-full"
-                                        onClick={GenerateAIContentThenBuildSite}
-                                    >
-                                        <span>
-                                            Generate site <span aria-hidden="true">&rarr;</span>
-                                        </span>
-                                    </Button>
-                                </div>
-                            </form>
+                        </>
+                        :
+                        <div className='border border-indigo-700 bg-white text-black p-8 rounded-lg'>
+                            <div className="flex justify-between gap-8">
+                                <span className="text-xl font-semibold text-gray-900">
+                                    Remix your site with AI
+                                </span>
+                                <button 
+                                    type='button'
+                                    className="  bg-none font-blue "
+                                    onClick={e => props.show(false)}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div className='mt-4'>
+                                <TabsMenu selectedTab={selectedTab} setSelectedTab={setSelectedTab} tabs={[
+                                    {
+                                        "name": 'Remix a field',
+                                        "current": true
+                                    },
+                                    {
+                                        "name": 'Remix all',
+                                        "current": false
+                                    },
+                                    {
+                                        "name": 'Settings',
+                                        "current": false,
+                                    }
+                                ]} />
+                            </div>
+                            {
+                                selectedTab === 'Remix a field' && <RemixForm />
+                            }
                         </div>
                 }
             </div>
@@ -268,4 +301,4 @@ function GenerateSiteAndRedirect() {
     )
 }
 
-export default GenerateSiteAndRedirect;
+export default SiteRegenerator;
