@@ -96,6 +96,16 @@ function SiteBuilder() {
         })
     }
 
+    const deleteSite = () => {
+        console.log('deleting site')
+        base.deleteSiteByID(siteID)
+        .then (response => {
+            console.log('deleted site', response)
+            window.location.href = '/dashboard'
+        })
+    }
+
+
     return (
         <div>
             { site.fields && <>
@@ -162,6 +172,7 @@ function SiteBuilder() {
                                     <div className="p-6">
                                         <SiteEditor
                                             unsavedChanges={unsavedChanges} setUnsavedChanges={setUnsavedChanges}
+                                            deleteSite={deleteSite}
                                             PersonName={PersonName} setPersonName={setPersonName}
                                             SiteName={SiteName} setSiteName={setSiteName}
                                             SiteCTA={SiteCTA} setSiteCTA={setSiteCTA}

@@ -215,20 +215,18 @@ function GenerateSiteAndRedirect() {
                         </div>
                         :
 
-                        <div className='bg-white text-white p-8 rounded-lg'>
-                            <div className="flex flex-col">
-                                <div className=' flex items-center'>
-                                    <div aria-label="Home">
-                                        <Logo className="-ml-4" />
-                                    </div>
-                                    <div className="">
-                                        <h2 className="text-xl font-semibold text-gray-900">
-                                            Build your portfolio in minutes with AI
-                                        </h2>
-                                        <p className="mt-1 text-sm text-gray-700">
-                                            Answer a few questions and we'll generate your site for you.
-                                        </p>
-                                    </div>
+                        <div className='bg-white text-black p-8 rounded-lg'>
+                            <a href="/dashboard" className='  '>
+                                <Logo/>
+                            </a>
+                            <div className=' mt-4 flex items-start'>
+                                <div className="">
+                                    <h2 className="text-xl font-semibold text-gray-900">
+                                        Build your portfolio in minutes with AI
+                                    </h2>
+                                    <p className="mt-1 text-sm text-gray-700">
+                                        Answer a few questions and we'll generate your site for you.
+                                    </p>
                                 </div>
                             </div>
                             <form className="mt-8 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">

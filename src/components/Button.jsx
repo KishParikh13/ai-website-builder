@@ -2,9 +2,9 @@ import clsx from 'clsx'
 
 const baseStyles = {
   solid:
-    'group inline-flex items-center justify-center rounded-md py-4 px-8 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2',
+    'group transition duration-100 inline-flex items-center justify-center rounded-md py-4 px-8 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2',
   outline:
-    'group inline-flex ring-1 items-center justify-center rounded-md py-4 px-8 text-sm focus:outline-none',
+    'group transition duration-100 inline-flex ring-1 items-center justify-center rounded-md py-4 px-8 text-sm focus:outline-none',
 }
 
 const variantStyles = {
@@ -22,6 +22,8 @@ const variantStyles = {
       'ring-slate-200 text-slate-700 hover:text-slate-900 hover:ring-slate-300 active:bg-slate-100 active:text-slate-600 focus-visible:outline-blue-600 focus-visible:ring-slate-300',
     white:
       'ring-slate-700 text-white hover:ring-slate-500 active:ring-slate-700 active:text-slate-400 focus-visible:outline-white',
+    red:
+      'ring-red-700 text-red-700 hover:ring-red-500 hover:bg-red-50 active:ring-red-700 active:text-red-400 focus-visible:outline-white',
   },
 }
 
