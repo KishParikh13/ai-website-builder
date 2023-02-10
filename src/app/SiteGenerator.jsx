@@ -26,7 +26,7 @@ function GenerateSiteAndRedirect() {
     }, [])
 
     const GenerateSiteAndRedirect = (generatedContent) => {
-        airtableBase.createSite(user.id, selfDescription, siteGoal, generatedContent)
+        airtableBase.createSite(user.fields["Full name"], user.id, selfDescription, siteGoal, generatedContent)
             .then(response => {
                 if (response.fields) {
                     window.location.href = `/sites/${response.id}`
@@ -51,11 +51,11 @@ function GenerateSiteAndRedirect() {
         AIGeneratedContent["SiteCTAType"] = "email"
 
         //generate content 1 by 1
-        
         // site name
         getOpenAICompletion({
             "model": "text-davinci-003",
-            "prompt": `Create a short catchy name for a portfolio website that belongs to a ${selfDescription} named ${userName}, e.g. "Katie's Design Portfolio", "John's Developer Showcase", "Jane's Creative Website", etc.`,
+            "prompt": `Create a short catchy name for a portfolio website that belongs to a ${selfDescription} named ${userName},
+            e.g. "Katie's Design Portfolio", "John's Developer Showcase", "Jane's Creative Website", etc.`,
             "temperature": 0.4,
             "max_tokens": 100
         }).then(response => {
@@ -65,8 +65,9 @@ function GenerateSiteAndRedirect() {
             // hero heading
             getOpenAICompletion({
                 "model": "text-davinci-003",
-                "prompt": `Write a catchy professional one line heading for ${userName}'s personal website. In first person, describing a ${selfDescription}, but using their first name only.
-                e.g. John is a circus clown who entertains audiences with his humorous performances.,
+                "prompt": `Write a catchy professional one sentence heading for a personal website 
+                in first person, creatively describing a ${selfDescription}.
+                e.g. Circus clown who entertains audiences with his humorous performances.,
                 Crafting Creative Experiences Through Design and Development.,
                 Chris: Exploring the Universe Through Music.
                 `,
@@ -79,8 +80,11 @@ function GenerateSiteAndRedirect() {
                 // subheading
                 getOpenAICompletion({
                     "model": "text-davinci-003",
-                    "prompt": `Write a 2-3 sentence subheading for a personal website. In first person, describing ${userName}, a ${selfDescription}, but using their first name only. The subheading will be below this heading: "${AIGeneratedContent["SiteHeroHeading"]}"
-                    e.g. I am a trans-disciplinary approach to design, I am able to leave behind the confines of a conventional method by combining UX fundamentals with years of experience in Product Marketing and Branding.,
+                    "prompt": `Write a 2-3 sentence subheading for a personal website 
+                    in first person, describing a ${selfDescription} without using their name.
+                    The subheading should flow from the previous sentence: "${AIGeneratedContent["SiteHeroHeading"]}"
+                    e.g. I am a trans-disciplinary approach to design, I am able to leave behind the confines of a conventional method
+                    by combining UX fundamentals with years of experience in Product Marketing and Branding.,
                     Hello there! 👋 I'm Daniel, a senior product designer based in Toronto currently working with RBC.,
                     I help businesses big and small to turn their ideas into great products their customers love.
                     `,
@@ -93,8 +97,8 @@ function GenerateSiteAndRedirect() {
                     // services
                     getOpenAICompletion({
                         "model": "text-davinci-003",
-                        "prompt": `2 services with a name and description that describe ${userName},
-                            a ${selfDescription} who offers: "${siteGoal}.
+                        "prompt": `2 services with a name and description, for
+                            a ${selfDescription}'s personal website about "${siteGoal}.
                             Format response as a an array of JSON objects with a name and description, e.g.
                             [{"name": "Service 1", "description": "Service 1 description"}, {"name": "Service 2", "description": "Service 2 description"}]"
                         `,
@@ -110,7 +114,7 @@ function GenerateSiteAndRedirect() {
                             "model": "text-davinci-003",
                             "prompt": `2 projects with a name, description, and link that belong to
                                 a ${selfDescription} who offers: "${siteGoal}.
-                                Format response as a an array of JSON objects with a catchy name, technical description, and link e.g.
+                                Format response as a an array of JSON objects with a catchy name, feature description, and link e.g.
                                 [{"name": "Project 1", "description": "Project 1 description", "link": "https://project1.com"}, {"name": "Project 2", "description": "Project 2 description", "link": "https://project2.com"}]"
                             `,
                             "temperature": 0.5,
@@ -127,7 +131,7 @@ function GenerateSiteAndRedirect() {
                             // site color
                             getOpenAICompletion({
                                 "model": "text-davinci-003",
-                                "prompt": `The CSS hex code for a color that represents ${selfDescription} and contrasts with white. background-color: #`,
+                                "prompt": `The six letter CSS hex code for a color that represents ${selfDescription} and contrasts with white. background-color: #`,
                                 "temperature": 0,
                                 "max_tokens": 3
                             }).then(response => {

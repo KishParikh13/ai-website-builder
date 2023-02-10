@@ -20,6 +20,7 @@ function SiteBuilder() {
 
     const [lastUpdated, setLastUpdated] = useState('');
     const [OwnerName, setOwnerName] = useState('');
+    const [PersonName, setPersonName] = useState('');
     const [SiteName, setSiteName] = useState('');
     const [SiteCTA, setSiteCTA] = useState('');
     const [SiteCTALink, setSiteCTALink] = useState('');
@@ -38,7 +39,7 @@ function SiteBuilder() {
     const [unsavedChanges, setUnsavedChanges] = useState(false);
 
     const cleanString = (str) => {
-        return str.replace(/(\r\n|\n|\r)/gm, "")
+        return str.replace(/(\r\n|\"|\n|\r)/gm, "")
     }
 
     // load site data from url
@@ -56,6 +57,7 @@ function SiteBuilder() {
                     setSite(response)
                     let siteFields = response.fields
                     setOwnerName(siteFields.OwnerName)
+                    setPersonName(siteFields.PersonName)
                     setSiteName(siteFields.Name)
                     setSiteCTA(siteFields.SiteCTA)
                     setSiteCTAType(siteFields.SiteCTAType)
@@ -69,13 +71,13 @@ function SiteBuilder() {
                     setSiteLogo(siteFields.SiteLogo)
                     setSiteServices(siteFields.SiteServices ? JSON.parse(siteFields.SiteServices): [])
                     setSiteProjects(siteFields.SiteProjects ? JSON.parse(siteFields.SiteProjects): [])
-
                     setLastUpdated(siteFields.Updated)
                 })
     }
 
     const saveSiteChanges = () => {
         base.updateSiteByID(siteID, {
+            "PersonName": PersonName,
             "Name": SiteName,
             "SiteCTA": SiteCTA,
             "SiteCTAHeading": SiteCTAHeading,
@@ -160,7 +162,7 @@ function SiteBuilder() {
                                     <div className="p-6">
                                         <SiteEditor
                                             unsavedChanges={unsavedChanges} setUnsavedChanges={setUnsavedChanges}
-                                            OwnerName={OwnerName} setOwnerName={setOwnerName}
+                                            PersonName={PersonName} setPersonName={setPersonName}
                                             SiteName={SiteName} setSiteName={setSiteName}
                                             SiteCTA={SiteCTA} setSiteCTA={setSiteCTA}
                                             SiteProjects={SiteProjects} setSiteProjects={setSiteProjects}
@@ -187,7 +189,7 @@ function SiteBuilder() {
                                     <div className="p-6">
                                         <div className="border-4 border-slate-800 rounded-lg shadow-xl">
                                             <SiteDisplay
-                                                OwnerName={OwnerName}
+                                                PersonName={PersonName}
                                                 SiteName={SiteName}
                                                 SiteCTA={SiteCTA}
                                                 SiteCTALink={(SiteCTAType === "website" ? "https://" : "mailto:")  + SiteCTALink}
