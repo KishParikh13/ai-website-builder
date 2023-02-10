@@ -58,12 +58,13 @@ export class Airtable {
     }
 
     // create site
-    createSite = (userID, siteDescription, siteGoal, generatedContent) => {
+    createSite = (userName, userID, siteDescription, siteGoal, generatedContent) => {
         return new Promise((resolve, reject) => {
             let data = {
                 fields: {
                     "Name": generatedContent.Name,
                     "Owner": [userID],
+                    "PersonName": userName,
                     "SiteDescription": siteDescription,
                     "SiteGoal": siteGoal,
                     "SiteHeroHeading": generatedContent.SiteHeroHeading,
@@ -81,6 +82,20 @@ export class Airtable {
                 }
             }
             axios.post(`${this.url}/Portfolios`, data, this.config)
+                .then(x => {
+                    resolve(x.data);
+                })
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    // delete site
+    deleteSiteByID = (siteID) => {
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/Portfolios/${siteID}`, this.config)
                 .then(x => {
                     resolve(x.data);
                 })
