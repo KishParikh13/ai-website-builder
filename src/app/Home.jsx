@@ -23,7 +23,7 @@ function Home() {
                 </div>
             </header>
             <div className="max-w-8xl px-8 md:px-12 pt-20 pb-16  flex flex-col items-start text-start lg:pt-32">
-                <h1 className="max-w-4xl font-display text-6xl font-medium tracking-tight text-slate-900 sm:text-7xl">
+                <h1 className="max-w-4xl font-display text-5xl sm:text-6xl font-medium tracking-tight text-slate-900 sm:text-7xl">
                     Build a{' '}
                     <span className="relative whitespace-nowrap text-blue-600">
                         <svg
@@ -38,7 +38,7 @@ function Home() {
                     </span>{' '}
                     in seconds with AI.
                 </h1>
-                <p className="mt-6 max-w-4xl text-3xl tracking-tight text-slate-700">
+                <p className="mt-6 max-w-4xl text-2xl sm:text-3xl tracking-tight text-slate-700">
                     Building a portfolio is grueling. We've removed the manual work with AI, now you can build one in seconds.
                 </p>
                 <div className="mt-10 flex justify-center gap-x-6">
