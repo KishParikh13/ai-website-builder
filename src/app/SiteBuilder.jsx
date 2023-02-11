@@ -38,6 +38,8 @@ function SiteBuilder() {
     const [saving, setSaving] = useState(false);
     const [unsavedChanges, setUnsavedChanges] = useState(false);
 
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
     const cleanString = (str) => {
         return str.replace(/(\r\n|\"|\n|\r)/gm, "")
     }
@@ -140,58 +142,73 @@ function SiteBuilder() {
                         <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
                             <div className="grid grid-cols-1 gap-4">
                                 <section>
-                                    <div className="overflow-hidden rounded-lg bg-white shadow">
+                                    <Button
+                                        type="button"
+                                        variant="solid"
+                                        color={saving ? "blue" : "green"}
+                                        className={"fixed flex z-10 bottom-8 right-8 shadow-2xl transition-all" + (unsavedChanges ? '  ' : ' opacity-0 hidden ')}
+                                        onClick={e => {
+                                            setSaving(true)
+                                            saveSiteChanges()
+                                            setTimeout(() => {
+                                                setSaving(false)
+                                                setUnsavedChanges(false);
+                                            }, 2000)
+                                        }}
+                                    >
+                                        <span>
+                                            {
+                                                saving && <div className='flex items-center gap-2'>
+                                                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                                    </svg>
+                                                </div>
+                                            }
+                                            {
+                                                !saving && unsavedChanges && <> 
+                                                    Publish changes
+                                                </>
+                                            }
+                                        </span>
+                                    </Button>
+                                    <div className={ (mobileMenuOpen ? " translate-y-0 shadow-2xl  " : " translate-y-[80vh]  ") + " sm:shadown-none transition duration-300 sm:translate-y-0 top-10 right-4 left-4  z-40 fixed sm:static overflow-hidden rounded-lg bg-white shadow"}>
                                         <div className="p-6">
-
-                                            <Button
-                                                type="button"
-                                                variant="solid"
-                                                color={saving ? "blue" : "green"}
-                                                className={"fixed flex z-10 bottom-8 right-8 shadow-2xl transition-all" + (unsavedChanges ? '  ' : ' opacity-0 hidden ')}
-                                                onClick={e => {
-                                                    setSaving(true)
-                                                    saveSiteChanges()
-                                                    setTimeout(() => {
-                                                        setSaving(false)
-                                                        setUnsavedChanges(false);
-                                                    }, 2000)
+                                            {/* Close button */}
+                                            <div 
+                                                onClick={ e=> {
+                                                    let isSmallBreakpoint = (window.innerWidth < 640)
+                                                    if (isSmallBreakpoint)
+                                                        setMobileMenuOpen(!mobileMenuOpen)
                                                 }}
+                                                className={ (mobileMenuOpen ? " rotate-180  ": " rotate-0 ") + " sm:rotate-0 sm:hidden flex  justify-center mb-4 text-gray-400  "}
                                             >
-                                                <span>
-                                                    {
-                                                        saving && <div className='flex items-center gap-2'>
-                                                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                                                            </svg>
-                                                        </div>
-                                                    }
-                                                    {
-                                                        !saving && unsavedChanges && <> 
-                                                            Publish changes
-                                                        </>
-                                                    }
-                                                </span>
-                                            </Button>
-                                            <SiteEditor
-                                                unsavedChanges={unsavedChanges} setUnsavedChanges={setUnsavedChanges}
-                                                deleteSite={deleteSite}
-                                                PersonName={PersonName} setPersonName={setPersonName}
-                                                SiteID={siteID}
-                                                SiteName={SiteName} setSiteName={setSiteName}
-                                                SiteCTA={SiteCTA} setSiteCTA={setSiteCTA}
-                                                SiteProjects={SiteProjects} setSiteProjects={setSiteProjects}
-                                                SiteCTALink={SiteCTALink} setSiteCTALink={setSiteCTALink}
-                                                SiteCTAType={SiteCTAType} setSiteCTAType={setSiteCTAType}
-                                                SiteCTAHeading={SiteCTAHeading} setSiteCTAHeading={setSiteCTAHeading}
-                                                SiteColor={SiteColor} setSiteColor={setSiteColor}
-                                                SiteHeroHeading={SiteHeroHeading} setSiteHeroHeading={setSiteHeroHeading}
-                                                SiteHeroSubheading={SiteHeroSubheading} setSiteHeroSubheading={setSiteHeroSubheading}
-                                                SiteServices={SiteServices} setSiteServices={setSiteServices}
-                                                SiteRecordID={SiteRecordID} siteRecordID={setSiteRecordID}
-                                                SiteImages={SiteImages} setSiteImages={setSiteImages}
-                                                SiteLogo={SiteLogo} setSiteLogo={setSiteLogo}
-                                            />
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
+                                                </svg>
+                                            </div>
+
+                                            <div className=' max-h-[80vh] overflow-y-scroll sm:overflow-auto'>
+                                                <SiteEditor
+                                                    unsavedChanges={unsavedChanges} setUnsavedChanges={setUnsavedChanges}
+                                                    deleteSite={deleteSite}
+                                                    PersonName={PersonName} setPersonName={setPersonName}
+                                                    SiteID={siteID}
+                                                    SiteName={SiteName} setSiteName={setSiteName}
+                                                    SiteCTA={SiteCTA} setSiteCTA={setSiteCTA}
+                                                    SiteProjects={SiteProjects} setSiteProjects={setSiteProjects}
+                                                    SiteCTALink={SiteCTALink} setSiteCTALink={setSiteCTALink}
+                                                    SiteCTAType={SiteCTAType} setSiteCTAType={setSiteCTAType}
+                                                    SiteCTAHeading={SiteCTAHeading} setSiteCTAHeading={setSiteCTAHeading}
+                                                    SiteColor={SiteColor} setSiteColor={setSiteColor}
+                                                    SiteHeroHeading={SiteHeroHeading} setSiteHeroHeading={setSiteHeroHeading}
+                                                    SiteHeroSubheading={SiteHeroSubheading} setSiteHeroSubheading={setSiteHeroSubheading}
+                                                    SiteServices={SiteServices} setSiteServices={setSiteServices}
+                                                    SiteRecordID={SiteRecordID} siteRecordID={setSiteRecordID}
+                                                    SiteImages={SiteImages} setSiteImages={setSiteImages}
+                                                    SiteLogo={SiteLogo} setSiteLogo={setSiteLogo}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </section>
